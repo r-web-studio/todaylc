@@ -204,12 +204,20 @@ export function Enroll() {
                     {serverError}
                   </motion.p>
                 )}
-                <motion.div whileTap={{ scale: 0.99 }}>
-                  <Button type="submit" loading={isSubmitting} size="lg" className="w-full" magnetic={false}>
-                    <Send size={16} />
-                    Yuborish
-                  </Button>
-                </motion.div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="flex w-full items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-gold to-gold-light px-10 py-4 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-all duration-300 hover:shadow-xl hover:shadow-gold/30 disabled:pointer-events-none disabled:opacity-50 select-none"
+                >
+                  {isSubmitting ? (
+                    <span className="h-5 w-5 animate-spin rounded-full border-2 border-navy border-t-transparent" />
+                  ) : (
+                    <>
+                      <Send size={16} />
+                      Yuborish
+                    </>
+                  )}
+                </button>
               </motion.form>
             </motion.div>
           ) : (
