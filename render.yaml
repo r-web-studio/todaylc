@@ -7,7 +7,9 @@ services:
     buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
-      - key: NODE_ENV
+      - key: NODE_VERSION
+        value: 20
+      - key: NODE_ENVW
         value: production
       - key: DATABASE_URL
         sync: false

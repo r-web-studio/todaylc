@@ -28,24 +28,27 @@ export default function AdminDashboard() {
     }
 
     fetch("/api/admin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password: token }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (!data.success) {
-          sessionStorage.removeItem("admin_token");
-          router.replace("/admin/login");
-          return;
-        }
-        setEnrollments(data.data || []);
+      headers: { Authorization: `Bearer ${token}` },
+    }).then((res) => {
+      if (res.status === 401) {
+        sessionStorage.removeItem("admin_token");
+        router.replace("/admin/login");
+        return;
+      }
+      return res.json();
+    }).then((data) => {
+      if (!data) return;
+      if (!data.success) {
+        setError(data.error || "Ma'lumotlarni yuklashda xatolik");
         setLoading(false);
-      })
-      .catch(() => {
-        setError("Ma'lumotlarni yuklashda xatolik");
-        setLoading(false);
-      });
+        return;
+      }
+      setEnrollments(data.data || []);
+      setLoading(false);
+    }).catch(() => {
+      setError("Ma'lumotlarni yuklashda xatolik");
+      setLoading(false);
+    });
   }, [router]);
 
   const handleLogout = () => {

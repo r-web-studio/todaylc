@@ -1,275 +1,185 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { CheckCircle2, Send, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Send, CheckCircle, Loader2, AlertCircle } from "lucide-react";
 import { courses } from "@/data/courses";
 
-const schema = z.object({
-  name: z.string().min(2, "Ismingizni kiriting (kamida 2 harf)"),
-  phone: z.string().regex(/^[\+\d\s\-\(\)]{7,20}$/, "Telefon raqamni to'g'ri kiriting"),
-  course: z.string().min(1, "Kursni tanlang"),
-  branch: z.string().min(1, "Filialni tanlang"),
-});
-
-type FormData = z.infer<typeof schema>;
+const BOT_USERNAME = "today_lc_bot";
 
 export function Enroll() {
-  const [submitted, setSubmitted] = useState(false);
-  const [serverError, setServerError] = useState("");
+  const [form, setForm] = useState({ name: "", phone: "", course: "", branch: "Urganch" });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-  });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-  const onSubmit = async (data: FormData) => {
-    setServerError("");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.phone.trim() || !form.course) {
+      setError("Barcha maydonlarni to'ldiring");
+      return;
+    }
+    setLoading(true);
+    setError("");
+
     try {
       const res = await fetch("/api/enroll", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(form),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        const err = await res.json();
-        setServerError(err.error || "Xatolik yuz berdi. Qayta urinib ko'ring.");
+        setError(data.error || "Xatolik yuz berdi");
+        setLoading(false);
         return;
       }
 
-      setSubmitted(true);
+      setSuccess(true);
+      setForm({ name: "", phone: "", course: "", branch: "Urganch" });
+      setLoading(false);
     } catch {
-      setServerError("Serverga ulanishda xatolik. Internetni tekshiring va qayta urinib ko'ring.");
+      setError("Serverga ulanishda xatolik");
+      setLoading(false);
     }
   };
+
+  if (success) {
+    return (
+      <section id="enroll" className="relative overflow-hidden bg-navy py-24 md:py-32">
+        <div className="absolute inset-0 bg-grid opacity-[0.03]" />
+        <div className="mx-auto max-w-lg px-6 text-center">
+          <CheckCircle size={64} className="mx-auto mb-6 text-green" />
+          <h2 className="font-heading text-4xl font-bold text-white md:text-5xl">
+            Arizangiz qabul qilindi!
+          </h2>
+          <p className="mt-4 text-lg text-white/60">
+            Tez orada siz bilan bog&apos;lanamiz.
+          </p>
+          <button
+            onClick={() => setSuccess(false)}
+            className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm text-white/70 transition-all hover:border-gold/50 hover:text-gold"
+          >
+            Yana ariza topshirish
+          </button>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="enroll" className="relative overflow-hidden bg-navy py-24 md:py-32">
       <div className="absolute inset-0 bg-grid opacity-[0.03]" />
-      <motion.div
-        className="absolute top-1/4 left-1/3 h-72 w-72 rounded-full bg-gold/5 blur-[100px]"
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 right-1/4 h-48 w-48 rounded-full bg-gold/5 blur-[80px]"
-        animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.5, 0.2] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      />
 
-      <div className="mx-auto max-w-3xl px-6">
-        <AnimatePresence mode="wait">
-          {!submitted ? (
-            <motion.div
-              key="form"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
+      <div className="mx-auto max-w-5xl px-6">
+        <div className="mb-14 text-center">
+          <h2
+            className="font-heading text-4xl font-bold text-white md:text-5xl"
+            style={{ fontFamily: "var(--font-heading)" }}
+          >
+            Kursga yozilish
+          </h2>
+          <p className="mt-4 text-lg text-white/50">
+            Quyidagi forma orqali ro&apos;yxatdan o&apos;ting
+          </p>
+        </div>
+
+        <div className="mx-auto max-w-xl">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Ismingiz"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white placeholder-white/30 outline-none transition-all focus:border-gold/50 focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
+              />
+            </div>
+
+            <div>
+              <input
+                type="tel"
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                placeholder="Telefon raqamingiz"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white placeholder-white/30 outline-none transition-all focus:border-gold/50 focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
+              />
+            </div>
+
+            <div>
+              <select
+                name="course"
+                value={form.course}
+                onChange={handleChange}
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white outline-none transition-all focus:border-gold/50 focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
+              >
+                <option value="" disabled className="bg-navy text-white/50">
+                  Kursni tanlang
+                </option>
+                {courses.map((c) => (
+                  <option key={c.id} value={c.title} className="bg-navy text-white">
+                    {c.icon} {c.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <select
+                name="branch"
+                value={form.branch}
+                onChange={handleChange}
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white outline-none transition-all focus:border-gold/50 focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
+              >
+                <option value="Urganch" className="bg-navy text-white">
+                  Urganch
+                </option>
+              </select>
+            </div>
+
+            {error && (
+              <div className="flex items-center gap-2 rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                <AlertCircle size={16} />
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold-light px-6 py-3.5 text-sm font-bold text-navy shadow-lg shadow-gold/20 transition-all hover:shadow-xl hover:shadow-gold/30 disabled:opacity-50"
             >
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="mb-12 text-center"
-              >
-                <motion.span
-                  animate={{ rotate: [0, 5, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="mb-4 inline-flex items-center gap-2 rounded-full bg-gold/10 px-4 py-1.5 text-sm text-gold"
-                >
-                  <Sparkles size={14} />
-                  Birinchi dars bepul
-                </motion.span>
-                <h2
-                  className="font-heading text-4xl font-bold text-white md:text-5xl"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  Bugun kursga yoziling!
-                </h2>
-                <p className="mt-4 text-lg text-white/50">
-                  Birinchi dars bepul. Bizga qo&apos;ng&apos;iroq qiling yoki formani to&apos;ldiring.
-                </p>
-              </motion.div>
+              {loading ? (
+                <Loader2 size={18} className="animate-spin" />
+              ) : (
+                <>
+                  <Send size={16} />
+                  Yuborish
+                </>
+              )}
+            </button>
+          </form>
 
-              <motion.form
-                onSubmit={handleSubmit(onSubmit)}
-                className="space-y-5"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-              >
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <motion.div whileHover={{ scale: 1.01 }} whileFocus={{ scale: 1.01 }}>
-                    <input
-                      {...register("name")}
-                      placeholder="Ismingiz"
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white placeholder-white/30 outline-none transition-all duration-300 focus:border-gold focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
-                    />
-                    {errors.name && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mt-1.5 text-xs text-red-400"
-                      >
-                        {errors.name.message}
-                      </motion.p>
-                    )}
-                  </motion.div>
-                  <motion.div whileHover={{ scale: 1.01 }} whileFocus={{ scale: 1.01 }}>
-                    <input
-                      {...register("phone")}
-                      placeholder="Telefon raqamingiz"
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white placeholder-white/30 outline-none transition-all duration-300 focus:border-gold focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
-                    />
-                    {errors.phone && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mt-1.5 text-xs text-red-400"
-                      >
-                        {errors.phone.message}
-                      </motion.p>
-                    )}
-                  </motion.div>
-                </div>
-
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <motion.div whileHover={{ scale: 1.01 }}>
-                    <select
-                      {...register("course")}
-                      defaultValue=""
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white outline-none transition-all duration-300 focus:border-gold focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
-                      style={{ colorScheme: "dark" }}
-                    >
-                      <option value="" disabled className="bg-navy text-white/50">
-                        Kursni tanlang
-                      </option>
-                      {courses.map((c) => (
-                        <option key={c.id} value={c.title} className="bg-navy text-white">
-                          {c.icon} {c.title}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.course && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mt-1.5 text-xs text-red-400"
-                      >
-                        {errors.course.message}
-                      </motion.p>
-                    )}
-                  </motion.div>
-                  <motion.div whileHover={{ scale: 1.01 }}>
-                    <select
-                      {...register("branch")}
-                      defaultValue=""
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white outline-none transition-all duration-300 focus:border-gold focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
-                      style={{ colorScheme: "dark" }}
-                    >
-                      <option value="" disabled className="bg-navy text-white/50">
-                        Filialni tanlang
-                      </option>
-                      <option value="Urganch" className="bg-navy text-white">
-                        Urganch
-                      </option>
-                    </select>
-                    {errors.branch && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="mt-1.5 text-xs text-red-400"
-                      >
-                        {errors.branch.message}
-                      </motion.p>
-                    )}
-                  </motion.div>
-                </div>
-
-                {serverError && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center text-sm text-red-400"
-                  >
-                    {serverError}
-                  </motion.p>
-                )}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="flex w-full items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-gold to-gold-light px-10 py-4 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-all duration-300 hover:shadow-xl hover:shadow-gold/30 disabled:pointer-events-none disabled:opacity-50 select-none"
-                >
-                  {isSubmitting ? (
-                    <span className="h-5 w-5 animate-spin rounded-full border-2 border-navy border-t-transparent" />
-                  ) : (
-                    <>
-                      <Send size={16} />
-                      Yuborish
-                    </>
-                  )}
-                </button>
-              </motion.form>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="success"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="text-center"
+          <div className="mt-8 text-center">
+            <p className="mb-3 text-sm text-white/30">Yoki Telegram bot orqali</p>
+            <a
+              href={`https://t.me/${BOT_USERNAME}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm text-white/70 transition-all hover:border-gold/50 hover:text-gold"
             >
-              <motion.div
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gold/20"
-              >
-                <CheckCircle2 size={44} className="text-gold" />
-              </motion.div>
-              <motion.h2
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="font-heading text-3xl font-bold text-gold md:text-4xl"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                Arizangiz qabul qilindi!
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="mt-4 text-lg text-white/60"
-              >
-                Tez orada siz bilan bog&apos;lanamiz.
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="mt-8"
-              >
-                <Button
-                  variant="outline"
-                  onClick={() => setSubmitted(false)}
-                  className="border-gold/30 text-gold hover:bg-gold hover:text-navy"
-                >
-                  Qayta yozilish
-                </Button>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <Send size={16} />
+              Telegram botga o&apos;tish
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

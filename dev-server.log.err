@@ -464,3 +464,99 @@ https://react.dev/link/hydration-mismatch
               ...
             ...
  
+RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ unhandledRejection: RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ unhandledRejection:  RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ uncaughtException: RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ uncaughtException:  RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ uncaughtException: RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ uncaughtException:  RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ uncaughtException: RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ uncaughtException:  RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ uncaughtException: RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ uncaughtException:  RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ uncaughtException: RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ uncaughtException:  RangeError: Failed to allocate memory
+    at ignore-listed frames {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ unhandledRejection: RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ unhandledRejection:  RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ unhandledRejection: RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+⨯ unhandledRejection:  RangeError: Failed to allocate memory
+    at new Promise (<anonymous>) {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
