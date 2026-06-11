@@ -51,3 +51,4 @@
  GET / 200 in 904ms (next.js: 86ms, application-code: 819ms)
   Reload env: .env.local
   Reload env: .env.local
+○ Compiling /api/bot/set-webhook ...

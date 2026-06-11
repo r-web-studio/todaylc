@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Today Ta'lim Markazi — Full-Stack Platform
 
-## Getting Started
+Course enrollment platform for Today Ta'lim Markazi (Urganch & Shovot, Uzbekistan).
 
-First, run the development server:
+## Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**Backend:** Node.js, Express.js, Prisma ORM, PostgreSQL, JWT auth, Zod
+**Frontend:** Next.js 14, Tailwind CSS, TanStack Query, Zustand, Recharts, Framer Motion
+
+## Project Structure
+
+```
+today-lc/
+├── backend/          # Express API server
+│   ├── prisma/       # Schema + seed
+│   └── src/
+│       ├── controllers/
+│       ├── middleware/
+│       ├── routes/
+│       ├── services/
+│       ├── utils/
+│       └── index.js
+├── frontend/         # Next.js 14 App Router
+│   ├── app/
+│   │   └── admin/    # Admin panel pages
+│   ├── components/
+│   │   ├── admin/    # Sidebar, StatsCard, EnrollTable
+│   │   ├── public/   # Navbar, Hero, CourseGrid, etc.
+│   │   └── ui/       # shadcn-style components
+│   └── lib/          # api, store, utils
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
+- Node.js 18+
+- PostgreSQL database
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Backend
 
-## Learn More
+```bash
+cd backend
+cp .env.example .env   # Edit with your DB credentials
+npm install
+npx prisma migrate dev --name init
+npm run db:seed        # Creates admin accounts + sample data
+npm run dev            # Starts on port 4000
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Frontend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+cd frontend
+cp .env.example .env.local   # Edit NEXT_PUBLIC_API_URL if needed
+npm install
+npm run dev                  # Starts on port 3000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Default Admin Accounts
 
-## Deploy on Vercel
+| Email | Password | Role |
+|-------|----------|------|
+| superadmin@today.uz | SuperAdmin2025! | SUPERADMIN |
+| admin@today.uz | Admin2025! | ADMIN |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Endpoints
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Public
+- `POST /api/enrollments` — Submit enrollment form
+- `GET /api/courses` — List active courses
+
+### Admin (JWT required)
+- `POST /api/auth/login` — Login
+- `POST /api/auth/refresh` — Refresh token
+- `POST /api/auth/logout` — Logout
+- `GET /api/auth/me` — Current user
+- `GET /api/enrollments` — List (paginated, filterable)
+- `PATCH /api/enrollments/:id/status` — Update status
+- `DELETE /api/enrollments/:id` — Delete (SUPERADMIN)
+- `GET /api/enrollments/export/csv` — Export CSV
+- `POST /api/courses` — Create course
+- `PUT /api/courses/:id` — Update course
+- `DELETE /api/courses/:id` — Soft-delete course
+- `GET /api/dashboard/stats` — Dashboard statistics
+- `GET /api/users` — List admins (SUPERADMIN)
+- `POST /api/users` — Create admin (SUPERADMIN)
+- `DELETE /api/users/:id` — Delete admin (SUPERADMIN)
+
+## Design
+
+- Primary: `#0B1D3A` (deep navy)
+- Accent: `#F5A623` (gold)
+- Font: Inter (body), Plus Jakarta Sans (headings)
