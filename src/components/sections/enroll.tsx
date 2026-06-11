@@ -4,21 +4,24 @@ import { useState } from "react";
 import { Send, CheckCircle, Loader2, AlertCircle } from "lucide-react";
 import { courses } from "@/data/courses";
 
-const BOT_USERNAME = "today_lc_bot";
-
 export function Enroll() {
-  const [form, setForm] = useState({ name: "", phone: "", course: "", branch: "Urganch" });
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [course, setCourse] = useState("");
+  const [branch] = useState("Urganch");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const resetForm = () => {
+    setName("");
+    setPhone("");
+    setCourse("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.phone.trim() || !form.course) {
+    if (!name.trim() || !phone.trim() || !course) {
       setError("Barcha maydonlarni to'ldiring");
       return;
     }
@@ -29,7 +32,7 @@ export function Enroll() {
       const res = await fetch("/api/enroll", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ name: name.trim(), phone: phone.trim(), course, branch }),
       });
 
       const data = await res.json();
@@ -41,7 +44,7 @@ export function Enroll() {
       }
 
       setSuccess(true);
-      setForm({ name: "", phone: "", course: "", branch: "Urganch" });
+      resetForm();
       setLoading(false);
     } catch {
       setError("Serverga ulanishda xatolik");
@@ -94,9 +97,8 @@ export function Enroll() {
             <div>
               <input
                 type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Ismingiz"
                 className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white placeholder-white/30 outline-none transition-all focus:border-gold/50 focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
               />
@@ -105,9 +107,8 @@ export function Enroll() {
             <div>
               <input
                 type="tel"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 placeholder="Telefon raqamingiz"
                 className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white placeholder-white/30 outline-none transition-all focus:border-gold/50 focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
               />
@@ -115,32 +116,18 @@ export function Enroll() {
 
             <div>
               <select
-                name="course"
-                value={form.course}
-                onChange={handleChange}
+                value={course}
+                onChange={(e) => setCourse(e.target.value)}
                 className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white outline-none transition-all focus:border-gold/50 focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
               >
-                <option value="" disabled className="bg-navy text-white/50">
+                <option value="" disabled>
                   Kursni tanlang
                 </option>
                 {courses.map((c) => (
-                  <option key={c.id} value={c.title} className="bg-navy text-white">
+                  <option key={c.id} value={c.title}>
                     {c.icon} {c.title}
                   </option>
                 ))}
-              </select>
-            </div>
-
-            <div>
-              <select
-                name="branch"
-                value={form.branch}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm text-white outline-none transition-all focus:border-gold/50 focus:bg-white/10 focus:ring-2 focus:ring-gold/20"
-              >
-                <option value="Urganch" className="bg-navy text-white">
-                  Urganch
-                </option>
               </select>
             </div>
 
@@ -166,19 +153,6 @@ export function Enroll() {
               )}
             </button>
           </form>
-
-          <div className="mt-8 text-center">
-            <p className="mb-3 text-sm text-white/30">Yoki Telegram bot orqali</p>
-            <a
-              href={`https://t.me/${BOT_USERNAME}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm text-white/70 transition-all hover:border-gold/50 hover:text-gold"
-            >
-              <Send size={16} />
-              Telegram botga o&apos;tish
-            </a>
-          </div>
         </div>
       </div>
     </section>
