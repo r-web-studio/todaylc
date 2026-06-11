@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: today-talim-markazi
+    runtime: node
+    repo: https://github.com/YOUR_USERNAME/today-lc
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true

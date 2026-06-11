@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Today Ta'lim Markazi — 7 yildan buyon yoshlarga eng ko'p imkoniyat beruvchi ta'lim markazi, Urganch va Shovot">
+  <title>Today Ta'lim Markazi | Urganch va Shovot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="images/today lc.jpg" type="image/jpeg">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar-inner">
+      <a href="#" class="logo">
+        <img src="images/today lc.jpg" alt="Today Ta'lim Markazi" class="logo-img" onerror="this.classList.add('fallback')">
+        <span class="logo-fallback hidden">Today LC</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menyu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-menu" id="navMenu">
+        <ul class="nav-links">
+          <li><a href="#hero">Bosh sahifa</a></li>
+          <li><a href="#courses">Kurslar</a></li>
+          <li><a href="#branches">Filiallar</a></li>
+          <li><a href="#sovrin">Loyiha</a></li>
+          <li><a href="#contact">Aloqa</a></li>
+        </ul>
+        <a href="#enroll" class="cta-btn nav-cta">Kursga yozilish</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg">
+      <img src="images/team.jpg" alt="" onerror="this.remove()">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1 class="hero-title fade-in">Kelajagingizni bugun boshla</h1>
+      <p class="hero-subtitle fade-in">7 yildan buyon yoshlarga eng ko'p imkoniyat beruvchi ta'lim markazi — Urganch va Shovotda</p>
+      <div class="hero-btns fade-in">
+        <a href="#enroll" class="btn btn-primary">Kursga yozilish</a>
+        <a href="#courses" class="btn btn-outline">Batafsil</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATS BAR ===== -->
+  <section class="stats" id="stats">
+    <div class="container stats-grid">
+      <div class="stat-item">
+        <div class="stat-icon">🎓</div>
+        <div class="stat-number"><span class="counter" data-target="7">0</span> <span class="stat-suffix">yil</span></div>
+        <div class="stat-label">Tajriba</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">👨‍🎓</div>
+        <div class="stat-number"><span class="counter" data-target="9000">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">O'quvchilar</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">📝</div>
+        <div class="stat-number"><span class="counter" data-target="15000">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">Bepul test ishtirokchilari</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">📊</div>
+        <div class="stat-number"><span class="counter" data-target="89">0</span><span class="stat-suffix">.6%</span></div>
+        <div class="stat-label">Muvaffaqiyat darajasi</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">🏫</div>
+        <div class="stat-number"><span class="counter" data-target="2">0</span></div>
+        <div class="stat-label">Filial</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COURSES ===== -->
+  <section class="courses" id="courses">
+    <div class="container">
+      <h2 class="section-title fade-in">Bizning kurslar</h2>
+      <p class="section-subtitle fade-in">Eng so'nggi metodikalar bo'yicha professional ta'lim</p>
+      <div class="courses-grid">
+        <div class="course-card fade-in">
+          <div class="course-icon">🌍</div>
+          <h3 class="course-name">IELTS</h3>
+          <p class="course-desc">Xalqaro ingliz tili imtihoniga tayyorlov</p>
+          <a href="#enroll" class="course-link">Batafsil</a>
+        </div>
+        <div class="course-card fade-in">
+          <div class="course-icon">📋</div>
+          <h3 class="course-name">CEFR</h3>
+          <p class="course-desc">Evropa standartlari bo'yicha ingliz tili</p>
+          <a href="#enroll" class="course-link">Batafsil</a>
+        </div>
+        <div class="course-card fade-in">
+          <div class="course-icon">🇬🇧</div>
+          <h3 class="course-name">Ingliz tili</h3>
+          <p class="course-desc">Boshlang'ichdan yuqori darajagacha</p>
+          <a href="#enroll" class="course-link">Batafsil</a>
+        </div>
+        <div class="course-card fade-in">
+          <div class="course-icon">🇷🇺</div>
+          <h3 class="course-name">Rus tili</h3>
+          <p class="course-desc">Muloqot va grammatika</p>
+          <a href="#enroll" class="course-link">Batafsil</a>
+        </div>
+        <div class="course-card fade-in">
+          <div class="course-icon">📖</div>
+          <h3 class="course-name">Tarix</h3>
+          <p class="course-desc">DTM va olimpiada tayyorgarlik</p>
+          <a href="#enroll" class="course-link">Batafsil</a>
+        </div>
+        <div class="course-card fade-in badge-new">
+          <div class="course-icon">⚖️</div>
+          <h3 class="course-name">Huquq <span class="new-badge">yangi!</span></h3>
+          <p class="course-desc">Asosiy huquqiy bilimlar</p>
+          <a href="#enroll" class="course-link">Batafsil</a>
+        </div>
+        <div class="course-card fade-in">
+          <div class="course-icon">➕</div>
+          <h3 class="course-name">Matematika</h3>
+          <p class="course-desc">Mantiq va hisob</p>
+          <a href="#enroll" class="course-link">Batafsil</a>
+        </div>
+        <div class="course-card fade-in">
+          <div class="course-icon">⚗️</div>
+          <h3 class="course-name">Fizika</h3>
+          <p class="course-desc">Nazariya va masala yechish</p>
+          <a href="#enroll" class="course-link">Batafsil</a>
+        </div>
+        <div class="course-card fade-in">
+          <div class="course-icon">🧬</div>
+          <h3 class="course-name">Biologiya</h3>
+          <p class="course-desc">DTM tayyorgarlik</p>
+          <a href="#enroll" class="course-link">Batafsil</a>
+        </div>
+        <div class="course-card fade-in">
+          <div class="course-icon">🧪</div>
+          <h3 class="course-name">Kimyo</h3>
+          <p class="course-desc">Amaliy va nazariy kurs</p>
+          <a href="#enroll" class="course-link">Batafsil</a>
+        </div>
+        <div class="course-card fade-in">
+          <div class="course-icon">📖</div>
+          <h3 class="course-name">Ona tili va adabiyoti</h3>
+          <p class="course-desc">Grammatika va ijod</p>
+          <a href="#enroll" class="course-link">Batafsil</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY CHOOSE US ===== -->
+  <section class="why-us" id="why-us">
+    <div class="container">
+      <h2 class="section-title fade-in">Nega aynan biz?</h2>
+      <p class="section-subtitle fade-in">7 yillik ishonch va sifat garovi</p>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon">✅</div>
+          <h3>7 yillik tajriba va ishonch</h3>
+          <p>2018 yildan buyon minglab o'quvchilarga sifatli ta'lim berib kelmoqdamiz</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">✅</div>
+          <h3>9 000+ muvaffaqiyatli o'quvchi</h3>
+          <p>Bitiruvchilarimiz O'zbekiston va xorijiy oliygohlarga muvaffaqiyatli o'qishga kirdi</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">✅</div>
+          <h3>Vazirlik bilan hamkorlik</h3>
+          <p>Maktabgacha va maktab ta'limi vazirligi bilan birgalikda loyihalar amalga oshirmoqda</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">✅</div>
+          <h3>Bepul sinov darslari va testlar</h3>
+          <p>Har bir kursda birinchi dars bepul, muntazam bepul test sinovlari o'tkaziladi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS CAROUSEL ===== -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <h2 class="section-title fade-in">O'quvchilarimiz fikrlari</h2>
+      <p class="section-subtitle fade-in">Biz haqimizda bitiruvchilarimiz nima deyishadi</p>
+      <div class="carousel-container fade-in">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <p class="testimonial-text">"IELTS kursida o'qib, 7.5 ball oldim. Today'dagi ustozlar tufayli orzuyimdagi universitetga hujjat topshirdim!"</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">S</div>
+                <div>
+                  <p class="testimonial-name">Sevinch R.</p>
+                  <p class="testimonial-role">IELTS bitiruvchisi, 2024</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <p class="testimonial-text">"Matematika kursi menga DTM dan yuqori ball olishimda katta yordam berdi. Har bir mavzu puxta tushuntiriladi."</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">J</div>
+                <div>
+                  <p class="testimonial-name">Javohir A.</p>
+                  <p class="testimonial-role">Matematika bitiruvchisi, 2024</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <p class="testimonial-text">"Ingliz tili kursi bolamning maktabdagi o'zlashtirishini keskin yaxshiladi. Today jamoasiga katta rahmat!"</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">N</div>
+                <div>
+                  <p class="testimonial-name">Nilufar X.</p>
+                  <p class="testimonial-role">Ota-ona</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <p class="testimonial-text">"TODAY Sovrini loyihasi orqali farzandimning bilim darajasini bepul sinab ko'rdik. Juda foydali tashabbus!"</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">M</div>
+                <div>
+                  <p class="testimonial-name">Madina Q.</p>
+                  <p class="testimonial-role">Ota-ona</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TODAY SOVRINI ===== -->
+  <section class="sovrin" id="sovrin">
+    <div class="container">
+      <h2 class="section-title fade-in">TODAY Sovrini — 5-mavsum</h2>
+      <div class="sovrin-content fade-in">
+        <div class="sovrin-text">
+          <p class="sovrin-desc">3 yildan buyon maktablarda 15 000+ o'quvchidan bepul test sinovlari o'tkazib kelinmoqda. Maqsad — o'quvchilarni qo'llab-quvvatlash va ota-onalarning e'tiborini kuchaytirish.</p>
+          <div class="sovrin-breakdown">
+            <h4>Test tarkibi:</h4>
+            <ul>
+              <li><strong>25 ta savol</strong> — jami</li>
+              <li>🧠 5 ta — Mantiqiy savollar</li>
+              <li>🔢 10 ta — Matematika</li>
+              <li>🇬🇧 10 ta — Ingliz tili</li>
+            </ul>
+          </div>
+          <a href="http://testtoday.uz" target="_blank" rel="noopener" class="btn btn-primary">Natijani tekshirish →</a>
+        </div>
+        <div class="sovrin-steps">
+          <div class="step-card">
+            <span class="step-num">1</span>
+            <p>testtoday.uz saytiga kiring</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">2</span>
+            <p>"Maktab monitoringi" bo'limini tanlang</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">3</span>
+            <p>7 xonali variant raqamini kiriting</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">4</span>
+            <p>Natijani ko'ring</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BRANCHES ===== -->
+  <section class="branches" id="branches">
+    <div class="container">
+      <h2 class="section-title fade-in">Filiallarimiz</h2>
+      <p class="section-subtitle fade-in">Ikki filialda sizga xizmat ko'rsatishdan mamnunmiz</p>
+      <div class="branches-grid">
+        <div class="branch-card fade-in">
+          <div class="branch-img">
+            <img src="images/atm.jpg" alt="Urganch filiali" onerror="this.classList.add('fallback')">
+          </div>
+          <div class="branch-info">
+            <h3>Filial 1 — Urganch</h3>
+            <p class="branch-phone">📞 +998 95 223-00-65</p>
+            <p class="branch-address">🏛 Urganch shahri, Xorazm viloyati</p>
+            <a href="https://maps.google.com/?q=Urganch+Xorazm" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Xaritada ko'rish</a>
+          </div>
+        </div>
+        <div class="branch-card fade-in">
+          <div class="branch-img">
+            <img src="images/otherfc.jpg" alt="Shovot filiali" onerror="this.classList.add('fallback')">
+          </div>
+          <div class="branch-info">
+            <h3>Filial 2 — Shovot</h3>
+            <p class="branch-phone">📞 +998 97 299-00-65</p>
+            <p class="branch-address">🏛 Shovot tumani, Xorazm viloyati</p>
+            <a href="https://maps.google.com/?q=Shovot+Xorazm" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Xaritada ko'rish</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ENROLLMENT CTA ===== -->
+  <section class="enroll" id="enroll">
+    <div class="container">
+      <div class="enroll-inner fade-in">
+        <h2 class="enroll-title">Bugun kursga yoziling!</h2>
+        <p class="enroll-sub">Birinchi dars bepul. Bizga qo'ng'iroq qiling yoki formani to'ldiring.</p>
+        <form class="enroll-form" id="enrollForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" id="formName" placeholder="Ismingiz" required>
+              <span class="form-error"></span>
+            </div>
+            <div class="form-group">
+              <input type="tel" id="formPhone" placeholder="Telefon raqamingiz" required>
+              <span class="form-error"></span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <select id="formCourse" required>
+                <option value="">Kursni tanlang</option>
+                <option value="IELTS">IELTS</option>
+                <option value="CEFR">CEFR</option>
+                <option value="Ingliz tili">Ingliz tili</option>
+                <option value="Rus tili">Rus tili</option>
+                <option value="Tarix">Tarix</option>
+                <option value="Huquq">Huquq</option>
+                <option value="Matematika">Matematika</option>
+                <option value="Fizika">Fizika</option>
+                <option value="Biologiya">Biologiya</option>
+                <option value="Kimyo">Kimyo</option>
+                <option value="Ona tili va adabiyoti">Ona tili va adabiyoti</option>
+              </select>
+              <span class="form-error"></span>
+            </div>
+            <div class="form-group">
+              <select id="formBranch" required>
+                <option value="">Filialni tanlang</option>
+                <option value="Urganch">Urganch</option>
+                <option value="Shovot">Shovot</option>
+              </select>
+              <span class="form-error"></span>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg">Yuborish</button>
+        </form>
+        <div class="form-success hidden" id="formSuccess">
+          <div class="success-icon">✅</div>
+          <h3>Arizangiz qabul qilindi!</h3>
+          <p>Tez orada siz bilan bog'lanamiz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title fade-in">Aloqa</h2>
+      <div class="contact-grid fade-in">
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-icon">📞</span>
+            <div>
+              <p class="contact-label">Urganch</p>
+              <a href="tel:+998952230065">+998 95 223-00-65</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📞</span>
+            <div>
+              <p class="contact-label">Shovot</p>
+              <a href="tel:+998972990065">+998 97 299-00-65</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📱</span>
+            <div>
+              <p class="contact-label">Telegram</p>
+              <a href="https://t.me/today_LC" target="_blank" rel="noopener">t.me/today_LC</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📸</span>
+            <div>
+              <p class="contact-label">Instagram</p>
+              <a href="https://www.instagram.com/today_talim_markazi" target="_blank" rel="noopener">@today_talim_markazi</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">🌐</span>
+            <div>
+              <p class="contact-label">Test platformasi</p>
+              <a href="http://testtoday.uz" target="_blank" rel="noopener">testtoday.uz</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d195683.53444202716!2d60.456383429518155!3d41.48606920985785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41dfaa583cb2d52d%3A0x8d197aabe1932fb4!2sUrganch%2C%20Xorazm%20Region%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1710000000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Urganch, Xorazm"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="images/today lc.jpg" alt="Today Ta'lim Markazi" onerror="this.classList.add('fallback')">
+        </div>
+        <p class="footer-tagline">7 yildan buyon yoshlar bilan birga.</p>
+      </div>
+      <div class="footer-nav">
+        <h4>Tezkor havolalar</h4>
+        <ul>
+          <li><a href="#hero">Bosh sahifa</a></li>
+          <li><a href="#courses">Kurslar</a></li>
+          <li><a href="#branches">Filiallar</a></li>
+          <li><a href="#sovrin">Loyiha</a></li>
+          <li><a href="#contact">Aloqa</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4>Biz bilan</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/today_talim_markazi" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://t.me/today_LC" target="_blank" rel="noopener" aria-label="Telegram">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.198 2.433a2.242 2.242 0 0 0-2.313.352L2.084 17.27a.807.807 0 0 0-.09 1.252l4.39 3.64a.806.806 0 0 0 .966.07l5.28-3.345a.492.492 0 0 1 .579.006l3.94 2.764a.806.806 0 0 0 1.27-.556l2.867-17.45a2.242 2.242 0 0 0-.928-2.218z"/><path d="M9.107 15.864s-.195 2.67-.31 3.957c-.03.337.076.39.338.147.426-.396 2.034-1.853 2.953-2.678"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2025 Today Ta'lim Markazi. Barcha huquqlar himoyalangan.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

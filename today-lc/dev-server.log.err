@@ -1,0 +1,344 @@
+⚠ Attempted to load @next/swc-win32-x64-msvc, but an error occurred: \\?\D:\today lc\today-lc\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node is not a valid Win32 application.
+\\?\D:\today lc\today-lc\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node
+(node:3408) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from "192.168.1.5".
+Cross-origin access to Next.js dev resources is blocked by default for safety.
+
+To allow this host in development, add it to "allowedDevOrigins" in next.config.js and restart the dev server:
+
+// next.config.js
+module.exports = {
+  allowedDevOrigins: ['192.168.1.5'],
+}
+
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+      <LoadingBoundary name="/" loading={null}>
+        <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+          <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+            <RedirectBoundary>
+              <RedirectErrorBoundary router={{...}}>
+                <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+                  <SegmentViewNode type="page" pagePath="page.tsx">
+                    <SegmentTrieNode>
+                    <Home>
+                      <Navbar>
+                      <Hero>
+                        <section id="hero" className="relative m...">
+                          <div>
+                          <FloatingOrbs>
+                            <div className="absolute i...">
+                              <motion.div className="absolute r..." style={{left:"19.7...", ...}} ...>
+                                <div
+                                  className="absolute rounded-full bg-gold/5 blur-3xl"
+                                  style={{
++                                   left: "19.772588211367648%"
+-                                   left: "50.5834%"
++                                   top: "22.847176132963696%"
+-                                   top: "53.7066%"
++                                   width: 98.20235913979008
+-                                   width: "111.16px"
++                                   height: 98.20235913979008
+-                                   height: "111.16px"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                              <motion.div className="absolute r..." style={{left:"30.5...", ...}} ...>
+                                <div
+                                  className="absolute rounded-full bg-gold/5 blur-3xl"
+                                  style={{
++                                   left: "30.55964702308281%"
+-                                   left: "31.7527%"
++                                   top: "45.58020463089511%"
+-                                   top: "36.631%"
++                                   width: 77.70748881025482
+-                                   width: "115.056px"
++                                   height: 77.70748881025482
+-                                   height: "115.056px"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                              <motion.div className="absolute r..." style={{left:"38.9...", ...}} ...>
+                                <div
+                                  className="absolute rounded-full bg-gold/5 blur-3xl"
+                                  style={{
++                                   left: "38.965264767652236%"
+-                                   left: "25.7049%"
++                                   top: "41.96847823777091%"
+-                                   top: "23.9282%"
++                                   width: 116.23564575216339
+-                                   width: "51.9013px"
++                                   height: 116.23564575216339
+-                                   height: "51.9013px"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                              <motion.div className="absolute r..." style={{left:"40.8...", ...}} ...>
+                                <div
+                                  className="absolute rounded-full bg-gold/5 blur-3xl"
+                                  style={{
++                                   left: "40.841277824221756%"
+-                                   left: "60.5854%"
++                                   top: "18.522690345183612%"
+-                                   top: "73.7185%"
++                                   width: 78.57450241637758
+-                                   width: "106.524px"
++                                   height: 78.57450241637758
+-                                   height: "106.524px"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                              <motion.div className="absolute r..." style={{left:"30.0...", ...}} ...>
+                                <div
+                                  className="absolute rounded-full bg-gold/5 blur-3xl"
+                                  style={{
++                                   left: "30.076868071373717%"
+-                                   left: "55.6328%"
++                                   top: "23.116885300680856%"
+-                                   top: "75.605%"
++                                   width: 58.24181852533232
+-                                   width: "71.4457px"
++                                   height: 58.24181852533232
+-                                   height: "71.4457px"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                              <motion.div className="absolute r..." style={{left:"81.4...", ...}} ...>
+                                <div
+                                  className="absolute rounded-full bg-gold/5 blur-3xl"
+                                  style={{
++                                   left: "81.47391840858691%"
+-                                   left: "22.6716%"
++                                   top: "69.81787679265773%"
+-                                   top: "88.2%"
++                                   width: 90.95077724762507
+-                                   width: "69.8481px"
++                                   height: 90.95077724762507
+-                                   height: "69.8481px"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                          ...
+                      <Stats>
+                      <Courses>
+                      <WhyUs>
+                      <Testimonials>
+                      <Sovrin>
+                      <Branches>
+                      <Enroll>
+                      <Contact>
+                      <Footer>
+                        <footer className="bg-navy">
+                          <div className="mx-auto ma...">
+                            <div className="grid gap-1...">
+                              <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} ...>
+                                <div
+                                  style={{
++                                   opacity: 0
++                                   transform: "translateY(20px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                              <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} ...>
+                                <div
+                                  style={{
++                                   opacity: 0
++                                   transform: "translateY(20px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                              <motion.div initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} ...>
+                                <div
+                                  style={{
++                                   opacity: 0
++                                   transform: "translateY(20px)"
+                                  }}
+                                  ref={function useMotionRef.useCallback}
+                                >
+                                  <h4>
+                                  <div className="flex gap-3">
+                                    <motion.a href="https://ww..." target="_blank" rel="noopener n..." ...>
+                                      <a
+                                        href="https://www.instagram.com/today_talim_markazi"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
++                                       className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10..."
+-                                       className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10..."
+                                        aria-label="Instagram"
++                                       tabIndex={0}
+-                                       tabIndex={null}
+                                        style={{}}
+                                        ref={function useMotionRef.useCallback}
+                                      >
+                                    <motion.a href="https://t...." target="_blank" rel="noopener n..." ...>
+                                      <a
+                                        href="https://t.me/today_LC"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
++                                       className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10..."
+-                                       className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10..."
+                                        aria-label="Telegram"
++                                       tabIndex={0}
+-                                       tabIndex={null}
+                                        style={{}}
+                                        ref={function useMotionRef.useCallback}
+                                      >
+                          <motion.div initial={{opacity:0}} whileInView={{opacity:1}} viewport={{once:true}} ...>
+                            <div
+                              className="border-t border-white/10"
++                             style={{opacity:0}}
+-                             style={{}}
+                              ref={function useMotionRef.useCallback}
+                            >
+                  ...
+                ...
+ 
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+Error: Error: invalid type: unit value, expected usize
+    at ignore-listed frames
+⨯ unhandledRejection: Error: Error: invalid type: unit value, expected usize
+    at ignore-listed frames
+⨯ unhandledRejection:  Error: Error: invalid type: unit value, expected usize
+    at ignore-listed frames
+⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+⚠ Attempted to load @next/swc-win32-x64-msvc, but an error occurred: \\?\D:\today lc\today-lc\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node is not a valid Win32 application.
+\\?\D:\today lc\today-lc\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node
+(node:4700) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+      <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+        <RedirectBoundary>
+          <RedirectErrorBoundary router={{...}}>
+            <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+              <SegmentViewNode type="page" pagePath="page.tsx">
+                <SegmentTrieNode>
+                <Home>
+                  <Navbar>
+                  <Hero>
+                    <section id="hero" className="relative m...">
+                      <div>
+                      <FloatingOrbs>
+                        <div className="absolute i...">
+                          <motion.div className="absolute r..." style={{left:"21.7...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "21.72389292278762%"
+-                               left: "52.6316%"
++                               top: "32.65055304004161%"
+-                               top: "33.0651%"
++                               width: 87.20797165868589
+-                               width: "99.4473px"
++                               height: 87.20797165868589
+-                               height: "99.4473px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"52.3...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "52.34099344381862%"
+-                               left: "59.9745%"
++                               top: "45.2963003924212%"
+-                               top: "28.1437%"
++                               width: 90.80782387882395
+-                               width: "87.753px"
++                               height: 90.80782387882395
+-                               height: "87.753px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"20.5...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "20.582429370697646%"
+-                               left: "29.4765%"
++                               top: "87.84134290805666%"
+-                               top: "32.0728%"
++                               width: 62.62572813380238
+-                               width: "119.522px"
++                               height: 62.62572813380238
+-                               height: "119.522px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"80.9...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "80.95938406099462%"
+-                               left: "72.6064%"
++                               top: "71.30162330210281%"
+-                               top: "44.9777%"
++                               width: 69.06398265024364
+-                               width: "118.913px"
++                               height: 69.06398265024364
+-                               height: "118.913px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"49.9...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "49.90436510288688%"
+-                               left: "47.4341%"
++                               top: "86.8598437041794%"
+-                               top: "18.9552%"
++                               width: 117.4751042640622
+-                               width: "78.141px"
++                               height: 117.4751042640622
+-                               height: "78.141px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"88.7...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "88.74054947585296%"
+-                               left: "60.0096%"
++                               top: "26.682633617124996%"
+-                               top: "16.2752%"
++                               width: 98.77981673211255
+-                               width: "82.9335px"
++                               height: 98.77981673211255
+-                               height: "82.9335px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                      ...
+                  ...
+              ...
+            ...
+ 
