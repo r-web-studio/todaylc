@@ -7,15 +7,30 @@ import { Hero } from "@/components/public/hero";
 import { CourseGrid } from "@/components/public/course-grid";
 import { ContactSection } from "@/components/public/contact-section";
 import { Footer } from "@/components/public/footer";
+import { EnrollModal } from "@/components/public/enroll-modal";
 
 export default function HomePage() {
+  const [isEnrollOpen, setIsEnrollOpen] = useState(false);
+  const [preselectedCourseId, setPreselectedCourseId] = useState<string | undefined>(undefined);
+
+  const handleEnrollClick = (courseId?: string) => {
+    setPreselectedCourseId(courseId);
+    setIsEnrollOpen(true);
+  };
+
   return (
     <>
-      <Navbar />
-      <Hero />
-      <CourseGrid />
+      <Navbar onEnrollClick={() => handleEnrollClick()} />
+      <Hero onEnrollClick={() => handleEnrollClick()} />
+      <CourseGrid onEnrollClick={handleEnrollClick} />
       <ContactSection />
       <Footer />
+
+      <EnrollModal
+        open={isEnrollOpen}
+        onOpenChange={setIsEnrollOpen}
+        preselectedCourseId={preselectedCourseId}
+      />
 
       {/* Floating Telegram button */}
       <a
@@ -29,3 +44,4 @@ export default function HomePage() {
     </>
   );
 }
+

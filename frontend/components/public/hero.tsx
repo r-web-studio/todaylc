@@ -4,7 +4,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-export function Hero() {
+interface HeroProps {
+  onEnrollClick: () => void;
+}
+
+export function Hero({ onEnrollClick }: HeroProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-primary">
       <div className="absolute inset-0 bg-grid-gold opacity-30" />
@@ -37,7 +41,7 @@ export function Hero() {
               variant="accent"
               size="lg"
               className="gap-2"
-              onClick={() => document.getElementById("enroll")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={onEnrollClick}
             >
               Kursga yozilish <ArrowRight size={18} />
             </Button>

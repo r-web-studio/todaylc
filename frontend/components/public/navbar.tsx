@@ -12,7 +12,11 @@ const navLinks = [
   { href: "#contact", label: "Aloqa" },
 ];
 
-export function Navbar() {
+interface NavbarProps {
+  onEnrollClick: () => void;
+}
+
+export function Navbar({ onEnrollClick }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -44,7 +48,7 @@ export function Navbar() {
           <Button
             variant="accent"
             size="sm"
-            onClick={() => document.getElementById("enroll")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={onEnrollClick}
           >
             Ro'yxatdan o'tish
           </Button>
@@ -79,7 +83,7 @@ export function Navbar() {
                 className="mt-2"
                 onClick={() => {
                   setOpen(false);
-                  document.getElementById("enroll")?.scrollIntoView({ behavior: "smooth" });
+                  onEnrollClick();
                 }}
               >
                 Ro'yxatdan o'tish
