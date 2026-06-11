@@ -20,6 +20,7 @@ type FormData = z.infer<typeof schema>;
 
 export function Enroll() {
   const [submitted, setSubmitted] = useState(false);
+  const [serverError, setServerError] = useState("");
 
   const {
     register,
@@ -30,6 +31,7 @@ export function Enroll() {
   });
 
   const onSubmit = async (data: FormData) => {
+    setServerError("");
     try {
       const res = await fetch("/api/enroll", {
         method: "POST",
@@ -39,13 +41,13 @@ export function Enroll() {
 
       if (!res.ok) {
         const err = await res.json();
-        alert(err.error || "Xatolik yuz berdi");
+        setServerError(err.error || "Xatolik yuz berdi. Qayta urinib ko'ring.");
         return;
       }
 
       setSubmitted(true);
     } catch {
-      alert("Serverga ulanishda xatolik. Iltimos qayta urinib ko'ring.");
+      setServerError("Serverga ulanishda xatolik. Internetni tekshiring va qayta urinib ko'ring.");
     }
   };
 
@@ -193,8 +195,17 @@ export function Enroll() {
                   </motion.div>
                 </div>
 
-                <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                  <Button type="submit" loading={isSubmitting} size="lg" className="w-full">
+                {serverError && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center text-sm text-red-400"
+                  >
+                    {serverError}
+                  </motion.p>
+                )}
+                <motion.div whileTap={{ scale: 0.99 }}>
+                  <Button type="submit" loading={isSubmitting} size="lg" className="w-full" magnetic={false}>
                     <Send size={16} />
                     Yuborish
                   </Button>
