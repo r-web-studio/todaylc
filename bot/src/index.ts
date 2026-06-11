@@ -117,27 +117,35 @@ bot.on('message:text', async (ctx) => {
 if (config.env === 'production' && config.bot.webhookUrl) {
   const app = express();
   app.use(express.json());
-  app.use(webhookCallback(bot, 'express', {
-    secretToken: config.bot.token,
-    timeoutMilliseconds: 25000,
-  }));
 
   app.get('/health', (_req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
-  app.listen(config.bot.port, async () => {
-    console.log(`Bot running in webhook mode on port ${config.bot.port}`);
+  app.post('/webhook', webhookCallback(bot, 'express', {
+    timeoutMilliseconds: 25000,
+  }));
+
+  app.listen(config.bot.port, '0.0.0.0', async () => {
+    console.log(`Bot running in webhook mode on 0.0.0.0:${config.bot.port}`);
     try {
-      await bot.api.setWebhook(`${config.bot.webhookUrl}`, {
+      await bot.api.setWebhook(`${config.bot.webhookUrl}/webhook`, {
         drop_pending_updates: true,
       });
-      console.log(`Webhook set to ${config.bot.webhookUrl}`);
+      console.log(`Webhook set to ${config.bot.webhookUrl}/webhook`);
     } catch (err) {
       console.error('Failed to set webhook:', err);
     }
   });
 } else {
+  const port = config.bot.port || 3000;
+  const app = express();
+  app.get('/health', (_req, res) => {
+    res.json({ status: 'ok', mode: 'polling', timestamp: new Date().toISOString() });
+  });
+  app.listen(port, '0.0.0.0', () => {
+    console.log(`Health server running on 0.0.0.0:${port} (polling mode)`);
+  });
   bot.start({
     onStart: () => {
       console.log('Bot running in polling mode');
