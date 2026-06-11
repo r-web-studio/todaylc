@@ -94,6 +94,9 @@ export function Navbar() {
             <img
               src="/images/today lc.jpg"
               alt="Today LC"
+              width={40}
+              height={40}
+              loading="lazy"
               className="h-full w-full object-cover"
               onError={(e) => {
                 (e.target as HTMLImageElement).style.display = "none";

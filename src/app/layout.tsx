@@ -17,7 +17,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Today Ta'lim Markazi | Urganch",
   description:
-    "7 yildan buyon yoshlarga eng ko'p imkoniyat beruvchi ta'lim markazi — Urganchda. IELTS, CEFR, matematika, fizika va boshqa kurslar.",
+    "7 yildan buyon yoshlarga eng ko'p imkoniyat beruvchi ta'lim markazi — Urganchda. IELTS, CEFR, matematika, fizika va boshqa kurslar. Kursga yoziling va kelajagingizni bugun boshlang!",
   keywords: [
     "Today Ta'lim Markazi",
     "Urganch",
@@ -29,9 +29,12 @@ export const metadata: Metadata = {
     "matematika",
     "fizika",
   ],
+  other: {
+    "theme-color": "#0B1F3A",
+  },
   openGraph: {
     title: "Today Ta'lim Markazi",
-    description: "7 yildan buyon yoshlarga eng ko'p imkoniyat beruvchi ta'lim markazi",
+    description: "7 yildan buyon yoshlarga eng ko'p imkoniyat beruvchi ta'lim markazi — Urganchda",
     locale: "uz_UZ",
     type: "website",
   },

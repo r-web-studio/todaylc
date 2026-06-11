@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useIntersectionObserver } from "@/lib/use-intersection";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface AnimatedCounterProps {
@@ -9,38 +8,60 @@ interface AnimatedCounterProps {
   suffix?: string;
   className?: string;
   duration?: number;
+  decimal?: number;
 }
 
-export function AnimatedCounter({ value, suffix, className, duration = 2000 }: AnimatedCounterProps) {
+export function AnimatedCounter({ value, suffix, className, duration = 2000, decimal = 0 }: AnimatedCounterProps) {
   const [count, setCount] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
-  const { ref, isVisible } = useIntersectionObserver({ threshold: 0.3 });
+  const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (isVisible && !hasAnimated) {
-      setHasAnimated(true);
-      const startTime = performance.now();
+    const el = ref.current;
+    if (!el) return;
 
-      function frame(currentTime: number) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        setCount(Math.floor(eased * value));
-
-        if (progress < 1) {
-          requestAnimationFrame(frame);
-        } else {
-          setCount(value);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+          observer.unobserve(el);
         }
-      }
+      },
+      { threshold: 0.3 }
+    );
 
-      requestAnimationFrame(frame);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasAnimated]);
+
+  useEffect(() => {
+    if (!hasAnimated) return;
+
+    const target = Math.round(value * Math.pow(10, decimal));
+    const startTime = performance.now();
+
+    function frame(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(eased * target);
+      setCount(current);
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        setCount(target);
+      }
     }
-  }, [isVisible, value, duration, hasAnimated]);
+
+    requestAnimationFrame(frame);
+  }, [hasAnimated, value, duration, decimal]);
+
+  const displayValue = decimal > 0 ? (count / Math.pow(10, decimal)).toFixed(decimal) : count.toLocaleString();
 
   return (
     <span ref={ref} className={cn("tabular-nums", className)}>
-      {count.toLocaleString()}
+      {displayValue}
       {suffix && <span className="font-normal opacity-80">{suffix}</span>}
     </span>
   );

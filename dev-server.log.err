@@ -342,3 +342,125 @@ https://react.dev/link/hydration-mismatch
               ...
             ...
  
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+      <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+        <RedirectBoundary>
+          <RedirectErrorBoundary router={{...}}>
+            <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+              <SegmentViewNode type="page" pagePath="page.tsx">
+                <SegmentTrieNode>
+                <Home>
+                  <Navbar>
+                  <Hero>
+                    <section id="hero" className="relative m...">
+                      <div>
+                      <FloatingOrbs>
+                        <div className="absolute i...">
+                          <motion.div className="absolute r..." style={{left:"22.4...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "22.454088702362434%"
+-                               left: "88.8838%"
++                               top: "58.99250148704928%"
+-                               top: "34.034%"
++                               width: 95.90953595989365
+-                               width: "105.61px"
++                               height: 95.90953595989365
+-                               height: "105.61px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"81.6...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "81.67949118479267%"
+-                               left: "29.3184%"
++                               top: "28.57354305542909%"
+-                               top: "76.7846%"
++                               width: 45.270440459393626
+-                               width: "50.0569px"
++                               height: 45.270440459393626
+-                               height: "50.0569px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"80.7...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "80.74915294595046%"
+-                               left: "40.3445%"
++                               top: "45.010004906630996%"
+-                               top: "60.886%"
++                               width: 66.70160502896692
+-                               width: "88.8459px"
++                               height: 66.70160502896692
+-                               height: "88.8459px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"25.2...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "25.234580375670888%"
+-                               left: "13.0076%"
++                               top: "80.10325286379631%"
+-                               top: "37.7468%"
++                               width: 86.14914761290137
+-                               width: "46.3284px"
++                               height: 86.14914761290137
+-                               height: "46.3284px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"73.9...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "73.90956219902097%"
+-                               left: "42.1399%"
++                               top: "76.05608194417023%"
+-                               top: "41.0202%"
++                               width: 118.47846935551969
+-                               width: "70.8077px"
++                               height: 118.47846935551969
+-                               height: "70.8077px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"43.7...", ...}} animate={{y:[...], ...}} ...>
+                            <div
+                              className="absolute rounded-full bg-gold/5 blur-3xl"
+                              style={{
++                               left: "43.74584750931878%"
+-                               left: "85.0754%"
++                               top: "46.40421057303971%"
+-                               top: "23.9663%"
++                               width: 75.84758124479448
+-                               width: "96.3423px"
++                               height: 75.84758124479448
+-                               height: "96.3423px"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                      ...
+                  ...
+              ...
+            ...
+ 

@@ -122,7 +122,7 @@ export const stats: Stat[] = [
   { icon: "🎓", value: 7, suffix: " yil", label: "Tajriba" },
   { icon: "👨‍🎓", value: 9000, suffix: "+", label: "O'quvchilar" },
   { icon: "📝", value: 15000, suffix: "+", label: "Bepul test ishtirokchilari" },
-  { icon: "📊", value: 89, suffix: ".6%", label: "Muvaffaqiyat darajasi" },
+  { icon: "📊", value: 96.6, suffix: "%", label: "Muvaffaqiyat darajasi" },
   { icon: "🏫", value: 1, label: "Filial" },
 ];
 
@@ -162,5 +162,26 @@ export const testimonials: Testimonial[] = [
     role: "Ota-ona",
     text: "TODAY Sovrini loyihasi orqali farzandimning bilim darajasini bepul sinab ko'rdik. Juda foydali tashabbus!",
     initial: "M",
+  },
+  {
+    id: "5",
+    name: "Jasur M.",
+    role: "Matematika bitiruvchisi, 2025",
+    text: "Matematika kursidan keyin DTM'da 89 ball oldim. Ustozlar har bir mavzuni juda tushunarli tushuntirdi!",
+    initial: "J",
+  },
+  {
+    id: "6",
+    name: "Dilnoza K.",
+    role: "Rus tili bitiruvchisi, 2024",
+    text: "Rus tili kursini tugatib, Rossiyaga o'qishga ketdim. Today'siz bu mumkin bo'lmasdi.",
+    initial: "D",
+  },
+  {
+    id: "7",
+    name: "Bobur T.",
+    role: "Fizika bitiruvchisi, 2025",
+    text: "Fizika olimpiadasiga tayyorlandim va viloyat bosqichida 2-o'rinni egalladim.",
+    initial: "B",
   },
 ];
