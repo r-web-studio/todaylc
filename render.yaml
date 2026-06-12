@@ -4,7 +4,8 @@ services:
     runtime: node
     plan: free
     buildCommand: npm install && npm run build
-    startCommand: npm start
+    startCommand: npx next start -p $PORT
+    healthCheckPath: /api/enroll
     envVars:
       - key: NODE_VERSION
         value: 20
