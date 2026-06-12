@@ -1,20 +1,20 @@
 "use client";
 
-import { Send, ExternalLink, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 const courseCategories = [
   {
     title: "Ingliz tili (General)",
     icon: "🇬🇧",
     items: [
-      { name: "Grammar (foundation)", duration: "2 oy" },
-      { name: "Beginner", duration: "1 oy" },
-      { name: "Elementary", duration: "2 oy" },
-      { name: "Pre-intermediate", duration: "2 oy" },
-      { name: "Grammar B1-B2", duration: "3 oy" },
-      { name: "Pre CEFR/IELTS", duration: "2 oy" },
-      { name: "IELTS", duration: "5 oy" },
-      { name: "CEFR", duration: "4 oy" },
+      { name: "Grammar (foundation)", duration: "2 oy", courseId: null },
+      { name: "Beginner", duration: "1 oy", courseId: "ingliz-tili" },
+      { name: "Elementary", duration: "2 oy", courseId: "ingliz-tili" },
+      { name: "Pre-intermediate", duration: "2 oy", courseId: "ingliz-tili" },
+      { name: "Grammar B1-B2", duration: "3 oy", courseId: null },
+      { name: "Pre CEFR/IELTS", duration: "2 oy", courseId: null },
+      { name: "IELTS", duration: "5 oy", courseId: "ielts" },
+      { name: "CEFR", duration: "4 oy", courseId: "cefr" },
     ],
     note: "Individual va kechki kurslar: to'lov ko'rsatilgan narxlardan 2 barobar (2x) yuqori.",
   },
@@ -22,46 +22,53 @@ const courseCategories = [
     title: "So'zlashuv kurslari",
     icon: "🗣",
     items: [
-      { name: "Speaking (guruhda)", duration: "" },
-      { name: "Speaking (individual)", duration: "" },
+      { name: "Speaking (guruhda)", duration: "", courseId: null },
+      { name: "Speaking (individual)", duration: "", courseId: null },
     ],
   },
   {
     title: "Boshqa til kurslari",
     icon: "🌍",
     items: [
-      { name: "Turk tili", duration: "3 oy" },
-      { name: "Koreys tili", duration: "3-6 oy" },
-      { name: "Nemis tili", duration: "3-6 oy" },
-      { name: "Rus tili (so'zlashuv)", duration: "3 oy" },
+      { name: "Turk tili", duration: "3 oy", courseId: null },
+      { name: "Koreys tili", duration: "3-6 oy", courseId: null },
+      { name: "Nemis tili", duration: "3-6 oy", courseId: null },
+      { name: "Rus tili (so'zlashuv)", duration: "3 oy", courseId: "rus-tili" },
     ],
   },
   {
     title: "Maktab fanlari",
     icon: "📚",
     items: [
-      { name: "Ona tili – oddiy", duration: "6 oy" },
-      { name: "Matematika – oddiy", duration: "6 oy" },
-      { name: "Biologiya – oddiy", duration: "6 oy" },
-      { name: "Kimyo – oddiy", duration: "6 oy" },
-      { name: "Tarix – oddiy", duration: "6 oy" },
-      { name: "Huquq – oddiy", duration: "6 oy" },
-      { name: "Rus tili – oddiy", duration: "6 oy" },
-      { name: "Milliy sertifikat", duration: "3-5 oy" },
+      { name: "Ona tili – oddiy", duration: "6 oy", courseId: "ona-tili" },
+      { name: "Matematika – oddiy", duration: "6 oy", courseId: "matematika" },
+      { name: "Biologiya – oddiy", duration: "6 oy", courseId: "biologiya" },
+      { name: "Kimyo – oddiy", duration: "6 oy", courseId: "kimyo" },
+      { name: "Tarix – oddiy", duration: "6 oy", courseId: "tarix" },
+      { name: "Huquq – oddiy", duration: "6 oy", courseId: "huquq" },
+      { name: "Rus tili – oddiy", duration: "6 oy", courseId: "rus-tili" },
+      { name: "Milliy sertifikat", duration: "3-5 oy", courseId: null },
     ],
   },
   {
     title: "Bolalar guruhlari (2-3-4 sinflar)",
     icon: "👶",
     items: [
-      { name: "Ingliz tili", duration: "9 oy" },
-      { name: "Matematika", duration: "6 oy" },
-      { name: "Rus tili", duration: "6 oy" },
-      { name: "Koreys tili", duration: "6 oy" },
-      { name: "Prezident maktabi Matematika (PM)", duration: "5 oy" },
+      { name: "Ingliz tili", duration: "9 oy", courseId: "ingliz-tili" },
+      { name: "Matematika", duration: "6 oy", courseId: "matematika" },
+      { name: "Rus tili", duration: "6 oy", courseId: "rus-tili" },
+      { name: "Koreys tili", duration: "6 oy", courseId: null },
+      { name: "Prezident maktabi Matematika (PM)", duration: "5 oy", courseId: null },
     ],
   },
 ];
+
+function openBot(courseId: string | null) {
+  const url = courseId
+    ? `https://t.me/todaylcbot?start=${courseId}`
+    : "https://t.me/todaylcbot";
+  window.location.href = url;
+}
 
 export function Enroll() {
   return (
@@ -81,7 +88,7 @@ export function Enroll() {
             Kursga yozilish
           </h2>
           <p className="mt-4 text-lg text-white/50">
-            O&apos;zingizga mos kursni tanlang va Telegram orqali ro&apos;yxatdan o&apos;ting
+            Kurs nomini bosing va Telegram orqali ro&apos;yxatdan o&apos;ting
           </p>
         </div>
 
@@ -103,8 +110,15 @@ export function Enroll() {
 
               <ul className="space-y-2">
                 {cat.items.map((item) => (
-                  <li key={item.name} className="flex items-center justify-between text-sm">
-                    <span className="text-white/70">{item.name}</span>
+                  <li
+                    key={item.name}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => openBot(item.courseId)}
+                    onKeyDown={(e) => { if (e.key === "Enter") openBot(item.courseId); }}
+                    className="flex cursor-pointer items-center justify-between rounded-lg px-2 py-1.5 text-sm transition-colors hover:bg-white/10"
+                  >
+                    <span className="text-white/70 group-hover:text-white">{item.name}</span>
                     {item.duration && (
                       <span className="ml-2 shrink-0 rounded-full bg-gold/10 px-2.5 py-0.5 text-xs font-medium text-gold">
                         {item.duration}
@@ -121,21 +135,6 @@ export function Enroll() {
               )}
             </div>
           ))}
-        </div>
-
-        <div className="mt-12 text-center">
-          <button
-            type="button"
-            onClick={() => window.open("https://t.me/todaylcbot", "_blank")}
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold-light px-8 py-3.5 text-sm font-bold text-navy shadow-lg shadow-gold/20 transition-all duration-300 hover:shadow-xl hover:shadow-gold/30"
-          >
-            <Send size={16} />
-            Telegram orqali yozilish
-            <ExternalLink size={14} />
-          </button>
-          <p className="mt-4 text-xs text-white/40">
-            Botga yozilib, kurs tanlang va murabbiylarimiz siz bilan bog&apos;lanadi
-          </p>
         </div>
       </div>
     </section>
