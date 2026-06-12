@@ -3,14 +3,17 @@ import logging
 import asyncio
 
 from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import HTMLResponse
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import Update
+from pydantic import BaseModel
 
 from config import BOT_TOKEN
 from handlers import start, info, enroll, admin
+from storage import save_enrollment
 
 logging.basicConfig(
     level=logging.INFO,
@@ -30,9 +33,49 @@ dp.include_routers(start.router, info.router, enroll.router, admin.router)
 app = FastAPI()
 
 
-@app.get("/")
+class EnrollPayload(BaseModel):
+    name: str
+    phone: str
+    course: str
+
+
+@app.get("/", response_class=HTMLResponse)
+async def index():
+    return """
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Today Ta'lim Markazi</title>
+  <style>
+    body { font-family: sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; line-height: 1.6; }
+    h1 { color: #2563eb; }
+    a { color: #2563eb; }
+    .btn { display: inline-block; background: #2563eb; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Today Ta'lim Markazi</h1>
+  <p>Urganch shahri, Baynalminal ko'chasi 22-uy</p>
+  <p>📞 +998952230065</p>
+  <p>🕐 Dushanba – Shanba, 09:00 – 20:00</p>
+  <a class="btn" href="https://t.me/todaylcbot" target="_blank">Telegram botga o'tish</a>
+  <hr>
+  <p><em>Kursga yozilish uchun Telegram botimizdan foydalaning.</em></p>
+</body>
+</html>
+"""
+
+
 @app.get("/health")
 async def health():
+    return {"status": "ok"}
+
+
+@app.post("/api/enroll")
+async def enroll(payload: EnrollPayload):
+    save_enrollment(payload.name, payload.phone, payload.course, payload.course)
     return {"status": "ok"}
 
 
