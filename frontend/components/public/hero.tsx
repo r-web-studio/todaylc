@@ -8,6 +8,10 @@ interface HeroProps {
   onEnrollClick: () => void;
 }
 
+function openBot() {
+  window.location.href = "https://t.me/todaylcbot";
+}
+
 export function Hero({ onEnrollClick }: HeroProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-primary">
@@ -41,7 +45,7 @@ export function Hero({ onEnrollClick }: HeroProps) {
               variant="accent"
               size="lg"
               className="gap-2"
-              onClick={onEnrollClick}
+              onClick={openBot}
             >
               Kursga yozilish <ArrowRight size={18} />
             </Button>

@@ -69,6 +69,10 @@ export function Hero() {
     }
   };
 
+  const openBot = () => {
+    window.location.href = "https://t.me/todaylcbot";
+  };
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
@@ -139,7 +143,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
         >
-          <Button size="lg" onClick={() => scrollTo("#enroll")}>
+          <Button size="lg" onClick={openBot}>
             Kursga yozilish
             <ArrowRight size={18} />
           </Button>

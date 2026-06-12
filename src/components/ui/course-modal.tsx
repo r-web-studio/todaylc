@@ -30,15 +30,9 @@ export function CourseModal({ course, onClose }: CourseModalProps) {
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose]);
 
-  const scrollToEnroll = () => {
+  const openBot = () => {
     onClose();
-    setTimeout(() => {
-      const target = document.querySelector("#enroll");
-      if (target) {
-        const top = target.getBoundingClientRect().top + window.scrollY - 96;
-        window.scrollTo({ top, behavior: "smooth" });
-      }
-    }, 300);
+    window.location.href = "https://t.me/todaylcbot";
   };
 
   return (
@@ -103,7 +97,7 @@ export function CourseModal({ course, onClose }: CourseModalProps) {
               </div>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Button onClick={scrollToEnroll} className="flex-1">
+                <Button onClick={openBot} className="flex-1">
                   Kursga yozilish
                   <ArrowRight size={16} />
                 </Button>

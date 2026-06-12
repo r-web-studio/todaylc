@@ -16,6 +16,11 @@ interface NavbarProps {
   onEnrollClick: () => void;
 }
 
+function openBot(e: React.MouseEvent) {
+  e.preventDefault();
+  window.location.href = "https://t.me/todaylcbot";
+}
+
 export function Navbar({ onEnrollClick }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -48,7 +53,7 @@ export function Navbar({ onEnrollClick }: NavbarProps) {
           <Button
             variant="accent"
             size="sm"
-            onClick={onEnrollClick}
+            onClick={openBot}
           >
             Ro'yxatdan o'tish
           </Button>
@@ -81,12 +86,12 @@ export function Navbar({ onEnrollClick }: NavbarProps) {
               <Button
                 variant="accent"
                 className="mt-2"
-                onClick={() => {
-                  setOpen(false);
-                  onEnrollClick();
-                }}
-              >
-                Ro'yxatdan o'tish
+                  onClick={() => {
+                    setOpen(false);
+                    window.location.href = "https://t.me/todaylcbot";
+                  }}
+                >
+                  Ro'yxatdan o'tish
               </Button>
             </div>
           </motion.div>

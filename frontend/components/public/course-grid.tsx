@@ -153,7 +153,7 @@ export function CourseGrid({ onEnrollClick }: CourseGridProps) {
               onClick={() => {
                 const id = selected.id;
                 setSelected(null);
-                onEnrollClick(id);
+                window.location.href = `https://t.me/todaylcbot`;
               }}
             >
               Ro'yxatdan o'tish <ArrowRight size={16} />

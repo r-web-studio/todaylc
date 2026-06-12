@@ -53,32 +53,20 @@ services:
       - key: NEXT_PUBLIC_API_URL
         sync: false
 
-  # Telegram Bot Service
+  # Telegram Bot Service (Python)
   - type: web
     name: today-lc-bot
-    runtime: node
+    runtime: python
     plan: free
-    rootDir: bot
-    buildCommand: npm install && npx prisma generate && npm run build
-    startCommand: npm start
+    rootDir: tbot
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
     envVars:
-      - key: NODE_VERSION
-        value: 20
-      - key: NODE_ENV
-        value: production
-      - key: TELEGRAM_BOT_TOKEN
+      - key: PYTHON_VERSION
+        value: 3.11
+      - key: BOT_TOKEN
         sync: false
-      - key: DATABASE_URL
+      - key: API_URL
         sync: false
-      - key: ADMIN_IDS
+      - key: ADMIN_PASSWORD
         sync: false
-      - key: AI_API_KEY
-        sync: false
-      - key: AI_BASE_URL
-        value: https://api.openai.com/v1
-      - key: AI_MODEL
-        value: gpt-4o-mini
-      - key: WEBHOOK_URL
-        sync: false
-      - key: PORT
-        value: 8443

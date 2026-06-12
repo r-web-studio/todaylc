@@ -59,14 +59,10 @@ export function Navbar() {
     }
   }, []);
 
-  const scrollToEnroll = useCallback((e: React.MouseEvent) => {
+  const openBot = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     setMobileOpen(false);
-    const target = document.querySelector("#enroll");
-    if (target) {
-      const top = target.getBoundingClientRect().top + window.scrollY - 96;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
+    window.location.href = "https://t.me/todaylcbot";
   }, []);
 
   return (
@@ -131,7 +127,7 @@ export function Navbar() {
               />
             </a>
           ))}
-          <Button size="sm" onClick={scrollToEnroll}>
+          <Button size="sm" onClick={openBot}>
             Kursga yozilish
           </Button>
         </nav>
@@ -187,7 +183,7 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              <Button size="lg" onClick={scrollToEnroll}>
+              <Button size="lg" onClick={openBot}>
                 Kursga yozilish
               </Button>
             </motion.div>
