@@ -1,0 +1,39 @@
+import json
+import os
+from datetime import datetime
+from typing import Optional
+
+STORAGE_FILE = "enrollments.json"
+
+
+def _load() -> list[dict]:
+    if not os.path.exists(STORAGE_FILE):
+        return []
+    with open(STORAGE_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _save(data: list[dict]):
+    with open(STORAGE_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def save_enrollment(name: str, phone: str, course: str, course_label: str) -> dict:
+    record = {
+        "id": int(datetime.now().timestamp() * 1000),
+        "name": name,
+        "phone": phone,
+        "course": course,
+        "course_label": course_label,
+        "created_at": datetime.now().isoformat(),
+    }
+    data = _load()
+    data.append(record)
+    _save(data)
+    return record
+
+
+def get_enrollments(limit: int = 50) -> list[dict]:
+    data = _load()
+    data.sort(key=lambda r: r.get("created_at", ""), reverse=True)
+    return data[:limit]

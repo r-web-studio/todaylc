@@ -12,6 +12,12 @@ const contacts = [
     value: "+998 95 223-00-65",
   },
   {
+    icon: Phone,
+    label: "Shovot",
+    href: "tel:+998952230065",
+    value: "+998 95 223-00-65",
+  },
+  {
     icon: Building2,
     label: "Manzil",
     href: "https://maps.google.com/?q=Urganch+Xorazm+Uzbekistan",

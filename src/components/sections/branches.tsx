@@ -12,11 +12,27 @@ const branches = [
     mapUrl: "https://maps.app.goo.gl/uJVpQHA1wP3tYgdg8",
     img: "/images/atm.jpg",
   },
+  {
+    city: "Shovot",
+    phone: "+998 95 223-00-65",
+    phoneHref: "+998952230065",
+    address: "Shovot tumani, Xorazm viloyati",
+    mapUrl: "https://maps.app.goo.gl/uJVpQHA1wP3tYgdg8",
+    img: "/images/otherfc.jpg",
+  },
 ];
 
 export function Branches() {
   return (
-    <section id="branches" className="bg-soft-white py-24 md:py-32">
+    <section id="branches" className="relative bg-soft-white py-24 md:py-32">
+      <div className="absolute inset-0 overflow-hidden">
+        <img
+          src="/images/team.jpg"
+          alt=""
+          className="h-full w-full object-cover opacity-[0.04]"
+          loading="lazy"
+        />
+      </div>
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
