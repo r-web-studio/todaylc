@@ -17,8 +17,8 @@ const branches = [
     phone: "+998 95 223-00-65",
     phoneHref: "+998952230065",
     address: "Shovot tumani, Xorazm viloyati",
-    mapUrl: "https://maps.app.goo.gl/uJVpQHA1wP3tYgdg8",
-    img: "/images/otherfc.jpg",
+    mapUrl: "https://maps.app.goo.gl/Ae2Hnz1Uc9tpEQBZ7",
+    img: "/images/atm.jpg",
   },
 ];
 
