@@ -43,9 +43,10 @@ export default function AdminDashboard() {
     const token = sessionStorage.getItem("admin_token");
     if (!token) { router.replace("/admin/login"); return; }
 
+    const headers = { Authorization: `Bearer ${token}` };
     Promise.all([
-      fetch("/api/admin", { headers: { Authorization: `Bearer ${token}` } }).then((r) => r.json()),
-      fetch("/api/dashboard/stats").then((r) => r.json()),
+      fetch("/api/admin", { headers }).then((r) => r.json()),
+      fetch("/api/dashboard/stats", { headers }).then((r) => r.json()),
     ]).then(([enrollData, statsData]) => {
       if (!enrollData.success) { setError(enrollData.error || "Xatolik"); setLoading(false); return; }
       setEnrollments(enrollData.data || []);

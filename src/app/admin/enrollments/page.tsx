@@ -57,13 +57,23 @@ export default function AdminEnrollments() {
     else { setSortBy(field); setSortOrder("asc"); }
   };
 
-  const exportCSV = () => {
+  const exportCSV = async () => {
     const token = sessionStorage.getItem("admin_token");
     const params = new URLSearchParams();
     if (search) params.append("search", search);
-    const a = document.createElement("a");
-    a.href = `/api/enrollments/export/csv?${params}`;
-    a.click();
+    try {
+      const res = await fetch(`/api/enrollments/export/csv?${params}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) return;
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `enrollments-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {}
   };
 
   const SortIcon = ({ field }: { field: string }) => {

@@ -45,6 +45,7 @@ export default function AdminLogin() {
           setLoading(false);
           return;
         }
+        sessionStorage.setItem("admin_token", data.data.accessToken);
         router.push("/admin/dashboard");
       }
     } catch {

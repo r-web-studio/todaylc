@@ -31,6 +31,7 @@ export async function POST(request: NextRequest) {
 
     return successResponse({
       user: { id: user.id, name: user.name, email: user.email, role: user.role },
+      accessToken,
     }, "Login successful");
   } catch (error) {
     console.error("Login error:", error);

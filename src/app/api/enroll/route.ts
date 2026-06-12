@@ -55,25 +55,5 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  try {
-    const enrollments = await prisma.enrollment.findMany({
-      include: { course: true },
-      orderBy: { enrolledAt: "desc" },
-      take: 100,
-    });
-
-    const data = enrollments.map((e) => ({
-      id: e.id,
-      name: e.studentName,
-      phone: e.studentPhone,
-      course: e.course?.titleUz || e.course?.title || "",
-      branch: e.branch === "URGANCH" ? "Urganch" : "Shovot",
-      created_at: e.enrolledAt.toISOString(),
-    }));
-
-    return NextResponse.json({ data });
-  } catch (error) {
-    console.error("Fetch enrollments error:", error);
-    return NextResponse.json({ error: "Ma'lumotlarni olishda xatolik" }, { status: 500 });
-  }
+  return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
 }

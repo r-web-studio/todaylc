@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
 import { authenticate, authorize } from "@/lib/api/auth";
 import { successResponse, errorResponse } from "@/lib/api/response";
+import { validateBody } from "@/lib/api/validate";
 
 const updateCourseSchema = z.object({
   title: z.string().min(2).optional(),
@@ -24,16 +25,14 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   try {
     const { id } = await params;
     const body = await request.json();
-    const result = updateCourseSchema.safeParse(body);
-    if (!result.success) {
-      return NextResponse.json({ success: false, message: "Validation failed", errors: result.error.flatten().fieldErrors }, { status: 400 });
-    }
+    const validated = validateBody(updateCourseSchema, body);
+    if (validated.error) return validated.error;
 
     const course = await prisma.course.update({
       where: { id },
       data: {
-        ...result.data,
-        price: result.data.price ? parseInt(String(result.data.price)) : undefined,
+        ...validated.data,
+        price: validated.data.price ? parseInt(String(validated.data.price)) : undefined,
       },
     });
     return successResponse(course, "Course updated");

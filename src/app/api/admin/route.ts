@@ -10,7 +10,8 @@ function verifyPassword(request: NextRequest): string | null {
 }
 
 function isValidPassword(password: string): boolean {
-  const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword) return false;
   return password === adminPassword;
 }
 

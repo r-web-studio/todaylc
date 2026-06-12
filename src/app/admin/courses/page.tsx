@@ -35,8 +35,6 @@ export default function AdminCourses() {
       .catch(() => setLoading(false));
   }, [router]);
 
-  const token = typeof window !== "undefined" ? sessionStorage.getItem("admin_token") : null;
-
   const openCreate = () => {
     setEditing(null);
     setForm({ title: "", titleUz: "", description: "", duration: "", price: "", branch: "BOTH" });
@@ -49,6 +47,12 @@ export default function AdminCourses() {
     setModalOpen(true);
   };
 
+  const authHeaders = () => {
+    const t = typeof window !== "undefined" ? sessionStorage.getItem("admin_token") : null;
+    return t ? { "Content-Type": "application/json", Authorization: `Bearer ${t}` } as Record<string, string>
+             : { "Content-Type": "application/json" };
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const method = editing ? "PUT" : "POST";
@@ -56,7 +60,7 @@ export default function AdminCourses() {
     try {
       const res = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders(),
         body: JSON.stringify({ ...form, price: Number(form.price) }),
       });
       const data = await res.json();
@@ -71,7 +75,7 @@ export default function AdminCourses() {
 
   const handleDelete = async (id: string) => {
     if (!confirm("Kursni o'chirishni tasdiqlaysizmi?")) return;
-    await fetch(`/api/courses/${id}`, { method: "DELETE" });
+    await fetch(`/api/courses/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${sessionStorage.getItem("admin_token")}` } });
     const refresh = await fetch("/api/courses");
     const refreshData = await refresh.json();
     if (refreshData.success) setCourses(refreshData.data);

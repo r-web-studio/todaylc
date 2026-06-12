@@ -20,10 +20,10 @@ export default function AdminUsers() {
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "ADMIN" });
 
   useEffect(() => {
-    const token = sessionStorage.getItem("admin_token");
-    if (!token) { router.replace("/admin/login"); return; }
+    const t = sessionStorage.getItem("admin_token");
+    if (!t) { router.replace("/admin/login"); return; }
 
-    fetch("/api/users")
+    fetch("/api/users", { headers: { Authorization: `Bearer ${t}` } })
       .then((r) => r.json())
       .then((res) => { if (res.success) setUsers(res.data); setLoading(false); })
       .catch(() => setLoading(false));
@@ -31,17 +31,18 @@ export default function AdminUsers() {
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
+    const t = sessionStorage.getItem("admin_token");
     try {
       const res = await fetch("/api/users", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${t}` },
         body: JSON.stringify(form),
       });
       const data = await res.json();
       if (data.success) {
         setModalOpen(false);
         setForm({ name: "", email: "", password: "", role: "ADMIN" });
-        const refresh = await fetch("/api/users");
+        const refresh = await fetch("/api/users", { headers: { Authorization: `Bearer ${t}` } });
         const refreshData = await refresh.json();
         if (refreshData.success) setUsers(refreshData.data);
       }
@@ -50,8 +51,9 @@ export default function AdminUsers() {
 
   const handleDelete = async (id: string) => {
     if (!confirm("Adminni o'chirishni tasdiqlaysizmi?")) return;
-    await fetch(`/api/users/${id}`, { method: "DELETE" });
-    const refresh = await fetch("/api/users");
+    const t = sessionStorage.getItem("admin_token");
+    await fetch(`/api/users/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${t}` } });
+    const refresh = await fetch("/api/users", { headers: { Authorization: `Bearer ${t}` } });
     const refreshData = await refresh.json();
     if (refreshData.success) setUsers(refreshData.data);
   };

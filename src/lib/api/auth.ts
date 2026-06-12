@@ -2,12 +2,24 @@ import { NextResponse } from "next/server";
 import { verifyAccessToken } from "./jwt";
 import prisma from "../prisma";
 
-export async function authenticate(request: Request) {
+function extractBearerToken(request: Request): string | null {
+  const authHeader = request.headers.get("authorization");
+  if (authHeader?.startsWith("Bearer ")) {
+    return authHeader.slice(7);
+  }
+  return null;
+}
+
+function extractCookieToken(request: Request): string | null {
   const cookieHeader = request.headers.get("cookie") || "";
-  const accessToken = cookieHeader
+  const match = cookieHeader
     .split(";")
-    .find((c) => c.trim().startsWith("accessToken="))
-    ?.split("=")[1];
+    .find((c) => c.trim().startsWith("accessToken="));
+  return match ? match.split("=")[1] : null;
+}
+
+export async function authenticate(request: Request) {
+  const accessToken = extractCookieToken(request) || extractBearerToken(request);
 
   if (!accessToken) {
     return { error: NextResponse.json({ success: false, message: "Authentication required" }, { status: 401 }) };
