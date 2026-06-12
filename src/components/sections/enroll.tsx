@@ -124,16 +124,15 @@ export function Enroll() {
         </div>
 
         <div className="mt-12 text-center">
-          <a
-            href="https://t.me/todaylcbot"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={() => window.open("https://t.me/todaylcbot", "_blank")}
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold-light px-8 py-3.5 text-sm font-bold text-navy shadow-lg shadow-gold/20 transition-all duration-300 hover:shadow-xl hover:shadow-gold/30"
           >
             <Send size={16} />
             Telegram orqali yozilish
             <ExternalLink size={14} />
-          </a>
+          </button>
           <p className="mt-4 text-xs text-white/40">
             Botga yozilib, kurs tanlang va murabbiylarimiz siz bilan bog&apos;lanadi
           </p>
