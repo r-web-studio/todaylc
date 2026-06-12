@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { neon } from "@neondatabase/serverless";
+import prisma from "@/lib/prisma";
 
 function verifyPassword(request: NextRequest): string | null {
   const authHeader = request.headers.get("authorization");
@@ -17,17 +17,12 @@ function isValidPassword(password: string): boolean {
 export async function POST(request: NextRequest) {
   try {
     const { password } = await request.json();
-
     if (!isValidPassword(password)) {
       return NextResponse.json({ error: "Noto'g'ri parol" }, { status: 401 });
     }
-
     return NextResponse.json({ success: true });
   } catch {
-    return NextResponse.json(
-      { error: "Server xatoligi", success: false },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Server xatoligi", success: false }, { status: 500 });
   }
 }
 
@@ -38,21 +33,24 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Ruxsat etilmagan" }, { status: 401 });
     }
 
-    const sql = neon(process.env.DATABASE_URL!);
+    const enrollments = await prisma.enrollment.findMany({
+      include: { course: true },
+      orderBy: { enrolledAt: "desc" },
+      take: 500,
+    });
 
-    const result = await sql`
-      SELECT id, name, phone, course, branch, created_at
-      FROM enrollments
-      ORDER BY created_at DESC
-      LIMIT 500
-    `;
+    const data = enrollments.map((e) => ({
+      id: e.id,
+      name: e.studentName,
+      phone: e.studentPhone,
+      course: e.course?.titleUz || e.course?.title || "",
+      branch: e.branch === "URGANCH" ? "Urganch" : "Shovot",
+      created_at: e.enrolledAt.toISOString(),
+    }));
 
-    return NextResponse.json({ data: result, success: true });
+    return NextResponse.json({ data, success: true });
   } catch (error) {
     console.error("Admin GET error:", error);
-    return NextResponse.json(
-      { error: "Server xatoligi", success: false },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Server xatoligi", success: false }, { status: 500 });
   }
 }

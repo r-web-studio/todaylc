@@ -1,26 +1,24 @@
 services:
-  # Backend Express API Service
   - type: web
-    name: today-lc-backend
+    name: today-lc
     runtime: node
     plan: free
-    rootDir: backend
-    buildCommand: npm install && npx prisma generate
+    buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
         value: 20
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 4000
       - key: DATABASE_URL
         sync: false
       - key: JWT_ACCESS_SECRET
         sync: false
       - key: JWT_REFRESH_SECRET
         sync: false
-      - key: FRONTEND_URL
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
         sync: false
       - key: SMTP_HOST
         value: smtp.gmail.com
@@ -33,40 +31,6 @@ services:
       - key: EMAIL_FROM
         value: Today Ta'lim Markazi <noreply@today.uz>
       - key: UPLOAD_DIR
-        value: ./uploads
+        value: ./public/uploads
       - key: MAX_FILE_SIZE
         value: 5242880
-
-  # Frontend Next.js Web Service
-  - type: web
-    name: today-lc-frontend
-    runtime: node
-    plan: free
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    startCommand: npm start
-    envVars:
-      - key: NODE_VERSION
-        value: 20
-      - key: NODE_ENV
-        value: production
-      - key: NEXT_PUBLIC_API_URL
-        sync: false
-
-  # Telegram Bot Service (Python)
-  - type: web
-    name: today-lc-bot
-    runtime: python
-    plan: free
-    rootDir: tbot
-    buildCommand: pip install -r requirements.txt
-    startCommand: python main.py
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11
-      - key: BOT_TOKEN
-        sync: false
-      - key: API_URL
-        sync: false
-      - key: ADMIN_PASSWORD
-        sync: false

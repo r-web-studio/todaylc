@@ -1,84 +1,79 @@
-import { NextResponse } from "next/server";
-import { neon } from "@neondatabase/serverless";
+import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, phone, course, branch } = body;
+    const { name, phone, course: courseTitle, branch } = body;
 
-    if (!name || !phone || !course || !branch) {
-      return NextResponse.json(
-        { error: "Barcha maydonlarni to'ldiring" },
-        { status: 400 }
-      );
+    if (!name || !phone || !courseTitle || !branch) {
+      return NextResponse.json({ error: "Barcha maydonlarni to'ldiring" }, { status: 400 });
     }
 
     if (name.trim().length < 2) {
-      return NextResponse.json(
-        { error: "Ismingizni kiriting (kamida 2 harf)" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Ismingizni kiriting (kamida 2 harf)" }, { status: 400 });
     }
 
     if (!/^[\+\d\s\-\(\)]{7,20}$/.test(phone.trim())) {
-      return NextResponse.json(
-        { error: "Telefon raqamni to'g'ri kiriting" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Telefon raqamni to'g'ri kiriting" }, { status: 400 });
     }
 
-    const sql = neon(process.env.DATABASE_URL!);
+    let course = await prisma.course.findFirst({
+      where: { OR: [{ title: courseTitle }, { titleUz: courseTitle }] },
+    });
 
-    await sql`
-      CREATE TABLE IF NOT EXISTS enrollments (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        phone VARCHAR(20) NOT NULL,
-        course VARCHAR(100) NOT NULL,
-        branch VARCHAR(100) NOT NULL DEFAULT 'Urganch',
-        created_at TIMESTAMPTZ DEFAULT NOW()
-      )
-    `;
+    if (!course) {
+      course = await prisma.course.create({
+        data: {
+          title: courseTitle,
+          titleUz: courseTitle,
+          description: `${courseTitle} kursi`,
+          duration: "Noma'lum",
+          price: 0,
+          branch: "BOTH",
+        },
+      });
+    }
 
-    const result = await sql`
-      INSERT INTO enrollments (name, phone, course, branch)
-      VALUES (${name.trim()}, ${phone.trim()}, ${course}, ${branch})
-      RETURNING id, created_at
-    `;
-
-    return NextResponse.json(
-      {
-        message: "Arizangiz qabul qilindi!",
-        data: result[0],
+    const enrollment = await prisma.enrollment.create({
+      data: {
+        studentName: name.trim(),
+        studentPhone: phone.trim(),
+        courseId: course.id,
+        branch: branch === "Shovot" ? "SHOVOT" : "URGANCH",
       },
-      { status: 201 }
-    );
+    });
+
+    return NextResponse.json({
+      message: "Arizangiz qabul qilindi!",
+      data: { id: enrollment.id, created_at: enrollment.enrolledAt.toISOString() },
+    }, { status: 201 });
   } catch (error) {
     console.error("Enrollment error:", error);
-    return NextResponse.json(
-      { error: "Xatolik yuz berdi. Iltimos qayta urinib ko'ring." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Xatolik yuz berdi. Iltimos qayta urinib ko'ring." }, { status: 500 });
   }
 }
 
 export async function GET() {
   try {
-    const sql = neon(process.env.DATABASE_URL!);
+    const enrollments = await prisma.enrollment.findMany({
+      include: { course: true },
+      orderBy: { enrolledAt: "desc" },
+      take: 100,
+    });
 
-    const result = await sql`
-      SELECT id, name, phone, course, branch, created_at
-      FROM enrollments
-      ORDER BY created_at DESC
-      LIMIT 100
-    `;
+    const data = enrollments.map((e) => ({
+      id: e.id,
+      name: e.studentName,
+      phone: e.studentPhone,
+      course: e.course?.titleUz || e.course?.title || "",
+      branch: e.branch === "URGANCH" ? "Urganch" : "Shovot",
+      created_at: e.enrolledAt.toISOString(),
+    }));
 
-    return NextResponse.json({ data: result });
+    return NextResponse.json({ data });
   } catch (error) {
     console.error("Fetch enrollments error:", error);
-    return NextResponse.json(
-      { error: "Ma'lumotlarni olishda xatolik" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Ma'lumotlarni olishda xatolik" }, { status: 500 });
   }
 }
