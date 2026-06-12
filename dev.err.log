@@ -1,3 +1,0 @@
-⚠ Port 3000 is in use by process 7840, using available port 3001 instead.
-⚠ Attempted to load @next/swc-win32-x64-msvc, but an error occurred: \\?\D:\today lc\today-lc\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node is not a valid Win32 application.
-\\?\D:\today lc\today-lc\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node

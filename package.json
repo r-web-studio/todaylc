@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
-    "postbuild": "node scripts/postbuild.js",
-    "start": "node .next/standalone/server.js",
+    "start": "next start",
     "lint": "eslint",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
@@ -36,6 +35,7 @@
     "sonner": "^1.4.0",
     "tailwind-merge": "^3.6.0",
     "zod": "^4.4.3",
+    "prisma": "^5.10.0",
     "zustand": "^4.5.1"
   },
   "engines": {
@@ -51,7 +51,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
-    "prisma": "^5.10.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
