@@ -68,7 +68,7 @@ export function CourseModal({ course, onClose }: CourseModalProps) {
               <X size={16} />
             </button>
 
-            <div className="bg-gradient-to-br from-navy to-navy-light px-8 pb-8 pt-10 text-center">
+            <div className="bg-gradient-to-br from-navy to-navy-light px-4 sm:px-8 pb-6 sm:pb-8 pt-8 sm:pt-10 text-center">
               <span className="mb-3 inline-block text-5xl">{course.icon}</span>
               <h3
                 className="font-heading text-3xl font-bold text-white"
@@ -83,7 +83,7 @@ export function CourseModal({ course, onClose }: CourseModalProps) {
               )}
             </div>
 
-            <div className="px-8 py-6">
+            <div className="px-4 sm:px-8 py-6">
               <p className="text-base leading-relaxed text-gray-600">
                 {course.longDescription}
               </p>
@@ -102,7 +102,7 @@ export function CourseModal({ course, onClose }: CourseModalProps) {
                 </ul>
               </div>
 
-              <div className="mt-8 flex gap-3">
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <Button onClick={scrollToEnroll} className="flex-1">
                   Kursga yozilish
                   <ArrowRight size={16} />

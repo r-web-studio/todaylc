@@ -142,7 +142,7 @@ export function Contact() {
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d195683.53444202716!2d60.456383429518155!3d41.48606920985785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41dfaa583cb2d52d%3A0x8d197aabe1932fb4!2sUrganch%2C%20Xorazm%20Region%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1710000000000"
               width="100%"
               height="100%"
-              className="min-h-[400px]"
+              className="min-h-[250px] md:min-h-[400px]"
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

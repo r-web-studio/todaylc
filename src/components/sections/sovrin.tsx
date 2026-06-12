@@ -109,7 +109,7 @@ export function Sovrin() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="group inline-flex items-center gap-2.5 rounded-full bg-navy px-8 py-4 text-base font-semibold text-gold shadow-lg shadow-navy/20 transition-all hover:bg-navy-light hover:shadow-xl hover:shadow-navy/30"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-navy px-6 sm:px-8 py-4 text-base font-semibold text-gold shadow-lg shadow-navy/20 transition-all hover:bg-navy-light hover:shadow-xl hover:shadow-navy/30"
             >
               Natijani tekshirish
               <motion.span
