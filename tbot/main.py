@@ -30,6 +30,12 @@ dp.include_routers(start.router, info.router, enroll.router, admin.router)
 app = FastAPI()
 
 
+@app.get("/")
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
+
+
 @app.post(WEBHOOK_PATH)
 async def webhook(request: Request):
     secret = request.headers.get("X-Telegram-Bot-Api-Secret-Token")
@@ -58,5 +64,6 @@ async def on_shutdown():
 
 if __name__ == "__main__":
     import uvicorn
+
     port = int(os.getenv("PORT", "8080"))
     uvicorn.run("main:app", host="0.0.0.0", port=port)

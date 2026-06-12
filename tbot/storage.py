@@ -3,7 +3,8 @@ import os
 from datetime import datetime
 from typing import Optional
 
-STORAGE_FILE = "enrollments.json"
+_DATA_DIR = os.getenv("STORAGE_DIR", os.path.dirname(os.path.abspath(__file__)))
+STORAGE_FILE = os.path.join(_DATA_DIR, "enrollments.json")
 
 
 def _load() -> list[dict]:
@@ -14,6 +15,7 @@ def _load() -> list[dict]:
 
 
 def _save(data: list[dict]):
+    os.makedirs(os.path.dirname(STORAGE_FILE), exist_ok=True)
     with open(STORAGE_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 

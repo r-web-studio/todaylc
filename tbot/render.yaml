@@ -4,12 +4,19 @@ services:
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
     envVars:
       - key: BOT_TOKEN
         sync: false
       - key: API_URL
         sync: false
       - key: ADMIN_PASSWORD
-        value: admin123
+        sync: false
       - key: WEBHOOK_SECRET
         generateValue: true
+      - key: STORAGE_DIR
+        value: /data
+    disk:
+      name: tbot-data
+      mountPath: /data
+      sizeGB: 1
