@@ -5,6 +5,7 @@ export interface Course {
   description: string;
   longDescription: string;
   highlights: string[];
+  price: string;
   isNew?: boolean;
 }
 
@@ -17,6 +18,7 @@ export const courses: Course[] = [
     longDescription:
       "IELTS xalqaro ingliz tili imtihoniga yuqori natija bilan tayyorlanish uchun maxsus kurs. Tajribali ustozlar bilan har tomonlama tayyorgarlik: listening, reading, writing va speaking ko'nikmalari.",
     highlights: ["Haftada 4 marta dars", "Individual yondashuv", "Real imtihon simulyatsiyasi", "7.0+ ball kafolati"],
+    price: "550 000 UZS/oy",
   },
   {
     id: "cefr",
@@ -26,6 +28,7 @@ export const courses: Course[] = [
     longDescription:
       "CEFR xalqaro standartlari asosida ingliz tilini bosqichma-bosqich o'rganish. A1 dan C1 darajasigacha bo'lgan to'liq ta'lim dasturi.",
     highlights: ["Darajalar bo'yicha guruhlar", "Xalqaro sertifikat", "Interaktiv metodika", "Kommunikativ yondashuv"],
+    price: "350 000 UZS/oy",
   },
   {
     id: "ingliz-tili",
@@ -35,6 +38,7 @@ export const courses: Course[] = [
     longDescription:
       "Umumiy ingliz tili kursi — noldan boshlab professional darajagacha. Grammatika, so'zlashuv, tinglab tushunish va yozma nutq ko'nikmalari.",
     highlights: ["Boshlang'ich daraja mavjud", "Subhiy muloqot amaliyoti", "Zamonaviy darsliklar", "Haftalik testlar"],
+    price: "350 000 UZS/oy",
   },
   {
     id: "rus-tili",
@@ -44,6 +48,7 @@ export const courses: Course[] = [
     longDescription:
       "Rus tilida erkin muloqot qilish va grammatikani mukammal o'zlashtirish uchun tizimli kurs. Kundalik hayot va ish uchun zarur bo'lgan barcha ko'nikmalar.",
     highlights: ["Amaliy muloqot", "Grammatik asoslar", "Audio va video materiallar", "Guruh va individual"],
+    price: "350 000 UZS/oy",
   },
   {
     id: "tarix",
@@ -53,6 +58,7 @@ export const courses: Course[] = [
     longDescription:
       "Tarix fanidan DTM imtihonlari va olimpiadalarga puxta tayyorgarlik. Xronologik yondashuv, muhim sanalar va jarayonlarni tizimli o'rganish.",
     highlights: ["DTM formatida mashqlar", "Olimpiada topshiriqlari", "Murakkab mavzular tahlili", "Test bazasi"],
+    price: "350 000 UZS/oy",
   },
   {
     id: "huquq",
@@ -63,6 +69,7 @@ export const courses: Course[] = [
       "Huquqiy savodxonlikni oshirish va asosiy huquqiy bilimlarni egallash uchun maxsus kurs. Konstitutsiya, fuqarolik va jinoyat huquqi asoslari.",
     highlights: ["Huquqiy asoslar", "Amaliy vaziyatlar tahlili", "Zamonaviy qonunchilik", "DTM tayyorgarlik"],
     isNew: true,
+    price: "350 000 UZS/oy",
   },
   {
     id: "matematika",
@@ -72,6 +79,7 @@ export const courses: Course[] = [
     longDescription:
       "Matematik fikrlashni rivojlantirish va mantiqiy masalalarni yechish ko'nikmalarini shakllantirish. Algebra, geometriya va mantiqiy masalalarni o'z ichiga oladi.",
     highlights: ["Mantiqiy fikrlash", "Masala yechish usullari", "DTM testlari", "Individual yondashuv"],
+    price: "350 000 UZS/oy",
   },
   {
     id: "fizika",
@@ -81,6 +89,7 @@ export const courses: Course[] = [
     longDescription:
       "Fizika fanini chuqur o'rganish: nazariy bilimlar va amaliy masalalarni yechish ko'nikmalari. Mexanika, elektr, optika va boshqa bo'limlar.",
     highlights: ["Nazariy va amaliy", "Laboratoriya ishlari", "DTM tayyorgarlik", "Murakkab masalalar"],
+    price: "350 000 UZS/oy",
   },
   {
     id: "biologiya",
@@ -90,6 +99,7 @@ export const courses: Course[] = [
     longDescription:
       "Biologiya fanidan DTM imtihonlariga tizimli tayyorgarlik. Botanika, zoologiya, anatomiya va genetika bo'limlari bo'yicha chuqur bilim.",
     highlights: ["To'liq DTM dasturi", "Virtual laboratoriya", "Testlar va tahlil", "Individual konsultatsiya"],
+    price: "350 000 UZS/oy",
   },
   {
     id: "kimyo",
@@ -99,6 +109,7 @@ export const courses: Course[] = [
     longDescription:
       "Kimyoni nazariy va amaliy jihatdan o'rganish. Elementlar, reaksiyalar, hisoblash masalalari va laboratoriya tajribalari.",
     highlights: ["Amaliy tajribalar", "Hisoblash masalalari", "DTM formatida testlar", "Individual yondashuv"],
+    price: "350 000 UZS/oy",
   },
   {
     id: "ona-tili",
@@ -108,6 +119,7 @@ export const courses: Course[] = [
     longDescription:
       "Ona tili grammatikasini mukammal o'zlashtirish va adabiyot fanidan chuqur bilim olish. Imlo, uslubiyat va ijodiy yozma ishlar.",
     highlights: ["Grammatik tahlil", "Ijodiy yozuv", "Adabiy tahlil", "DTM tayyorgarlik"],
+    price: "350 000 UZS/oy",
   },
 ];
 
@@ -122,7 +134,7 @@ export const stats: Stat[] = [
   { icon: "🎓", value: 7, suffix: " yil", label: "Tajriba" },
   { icon: "👨‍🎓", value: 9000, suffix: "+", label: "O'quvchilar" },
   { icon: "📝", value: 15000, suffix: "+", label: "Bepul test ishtirokchilari" },
-  { icon: "📊", value: 89, suffix: ".6%", label: "Muvaffaqiyat darajasi" },
+  { icon: "📊", value: 96.6, suffix: "%", label: "Muvaffaqiyat darajasi" },
   { icon: "🏫", value: 1, label: "Filial" },
 ];
 
@@ -162,5 +174,26 @@ export const testimonials: Testimonial[] = [
     role: "Ota-ona",
     text: "TODAY Sovrini loyihasi orqali farzandimning bilim darajasini bepul sinab ko'rdik. Juda foydali tashabbus!",
     initial: "M",
+  },
+  {
+    id: "5",
+    name: "Jasur M.",
+    role: "Matematika bitiruvchisi, 2025",
+    text: "Matematika kursidan keyin DTM'da 89 ball oldim. Ustozlar har bir mavzuni juda tushunarli tushuntirdi!",
+    initial: "J",
+  },
+  {
+    id: "6",
+    name: "Dilnoza K.",
+    role: "Rus tili bitiruvchisi, 2024",
+    text: "Rus tili kursini tugatib, Rossiyaga o'qishga ketdim. Today'siz bu mumkin bo'lmasdi.",
+    initial: "D",
+  },
+  {
+    id: "7",
+    name: "Bobur T.",
+    role: "Fizika bitiruvchisi, 2025",
+    text: "Fizika olimpiadasiga tayyorlandim va viloyat bosqichida 2-o'rinni egalladim.",
+    initial: "B",
   },
 ];

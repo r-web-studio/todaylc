@@ -1,0 +1,152 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  SUPERADMIN
+}
+
+enum ApplicationStatus {
+  NEW
+  CONTACTED
+  ENROLLED
+  REJECTED
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum Branch {
+  URGANCH
+  SHOVOT
+  BOTH
+}
+
+enum Language {
+  UZ
+  RU
+  EN
+}
+
+enum EnrollmentSource {
+  WEB
+  BOT
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(ADMIN)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  auditLogs    AuditLog[]
+
+  @@map("users")
+}
+
+model Course {
+  id          String      @id @default(cuid())
+  title       String
+  titleUz     String
+  description String
+  duration    String
+  price       Int
+  branch      Branch      @default(BOTH)
+  isActive    Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  enrollments Enrollment[]
+
+  @@map("courses")
+}
+
+model Enrollment {
+  id             String            @id @default(cuid())
+  studentName    String
+  studentPhone   String
+  studentEmail   String?
+  photoUrl       String?
+  courseId       String
+  course         Course            @relation(fields: [courseId], references: [id])
+  branch         Branch
+  status         ApplicationStatus @default(NEW)
+  message        String?
+  source         EnrollmentSource  @default(BOT)
+  telegramUserId BigInt?
+  adminNote      String?
+  enrolledAt     DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@index([courseId])
+  @@index([branch])
+  @@index([status])
+  @@index([source])
+  @@index([enrolledAt])
+  @@map("enrollments")
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  adminId    String
+  admin      AdminUser @relation(fields: [adminId], references: [id])
+  action     String
+  targetId   String?
+  targetType String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([adminId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+model TelegramUser {
+  id         Int           @id @default(autoincrement())
+  telegramId BigInt        @unique
+  username   String?
+  name       String?
+  phone      String?
+  language   Language      @default(UZ)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  applications Application[]
+  messages   Message[]
+
+  @@map("telegram_users")
+}
+
+model Application {
+  id        Int               @id @default(autoincrement())
+  userId    Int
+  user      TelegramUser      @relation(fields: [userId], references: [id])
+  name      String
+  phone     String
+  course    String
+  branch    String
+  status    ApplicationStatus @default(NEW)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@index([status])
+  @@index([userId])
+  @@map("applications")
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      TelegramUser @relation(fields: [userId], references: [id])
+  question  String
+  answer    String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("messages")
+}

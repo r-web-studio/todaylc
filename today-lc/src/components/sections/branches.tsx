@@ -49,6 +49,9 @@ export function Branches() {
                 <motion.img
                   src={b.img}
                   alt={`${b.city} filiali`}
+                  width={600}
+                  height={400}
+                  loading="lazy"
                   className="h-full w-full object-cover"
                   whileHover={{ scale: 1.08 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}

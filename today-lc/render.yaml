@@ -1,15 +1,88 @@
 services:
+  # Backend Express API Service
   - type: web
-    name: today-talim-markazi
+    name: today-lc-backend
     runtime: node
-    repo: https://github.com/YOUR_USERNAME/today-lc
     plan: free
+    rootDir: backend
+    buildCommand: npm install && npx prisma generate
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        sync: false
+      - key: JWT_REFRESH_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: EMAIL_FROM
+        value: Today Ta'lim Markazi <noreply@today.uz>
+      - key: UPLOAD_DIR
+        value: ./uploads
+      - key: MAX_FILE_SIZE
+        value: 5242880
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: TELEGRAM_URL
+        value: https://t.me/today_LC
+
+  # Frontend Next.js Web Service
+  - type: web
+    name: today-lc-frontend
+    runtime: node
+    plan: free
+    rootDir: frontend
     buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
+      - key: NODE_VERSION
+        value: 20
       - key: NODE_ENV
         value: production
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+
+  # Telegram Bot Service
+  - type: web
+    name: today-lc-bot
+    runtime: node
+    plan: free
+    rootDir: bot
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: NODE_ENV
+        value: production
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
       - key: DATABASE_URL
         sync: false
-    healthCheckPath: /
-    autoDeploy: true
+      - key: ADMIN_IDS
+        sync: false
+      - key: AI_API_KEY
+        sync: false
+      - key: AI_BASE_URL
+        value: https://api.openai.com/v1
+      - key: AI_MODEL
+        value: gpt-4o-mini
+      - key: WEBHOOK_URL
+        sync: false
+      - key: PORT
+        value: 8443

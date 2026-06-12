@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  SUPERADMIN
+}
+
+enum EnrollmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum Branch {
+  URGANCH
+  SHOVOT
+  BOTH
+}
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  passwordHash  String
+  role          Role     @default(ADMIN)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  auditLogs     AuditLog[]
+
+  @@map("users")
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  titleUz     String
+  description String
+  duration    String
+  price       Int
+  branch      Branch   @default(BOTH)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  enrollments Enrollment[]
+
+  @@map("courses")
+}
+
+model Enrollment {
+  id           String            @id @default(cuid())
+  studentName  String
+  studentPhone String
+  studentEmail String?
+  photoUrl     String?
+  courseId     String
+  course       Course            @relation(fields: [courseId], references: [id])
+  branch       Branch
+  status       EnrollmentStatus  @default(PENDING)
+  message      String?
+  enrolledAt   DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  @@index([courseId])
+  @@index([branch])
+  @@index([status])
+  @@index([enrolledAt])
+  @@map("enrollments")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  adminId     String
+  admin       User     @relation(fields: [adminId], references: [id])
+  action      String
+  targetId    String?
+  targetType  String?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  @@index([adminId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}

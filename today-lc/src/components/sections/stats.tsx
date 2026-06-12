@@ -50,7 +50,7 @@ export function Stats() {
                 className="font-heading text-3xl font-bold text-white md:text-4xl"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
-                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} decimal={stat.value % 1 !== 0 ? 1 : 0} />
               </div>
               <p className="mt-1.5 text-sm text-white/60">{stat.label}</p>
             </motion.div>

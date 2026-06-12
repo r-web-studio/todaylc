@@ -1,0 +1,196 @@
+{
+  "language_prompt": "🌍 Tilni tanlang",
+  "language_selected": "🎓 Today Ta'lim Markaziga xush kelibsiz!",
+  "language_changed": "✅ Til o'zgartirildi: O'zbekcha",
+
+  "menu": {
+    "courses": "📚 Kurslar",
+    "ai_assistant": "🤖 AI Yordamchi",
+    "enroll": "📝 Ro'yxatdan o'tish",
+    "branches": "🏫 Filiallar",
+    "contact": "📞 Kontakt",
+    "social": "🌐 Ijtimoiy Tarmoqlar",
+    "about": "ℹ️ Biz Haqimizda",
+    "change_language": "⚙️ Tilni O'zgartirish",
+    "back": "⬅️ Orqaga"
+  },
+
+  "courses": {
+    "title": "📚 Kurslar",
+    "select": "Kurslardan birini tanlang:",
+    "ielts": "IELTS",
+    "cefr": "CEFR",
+    "english": "Ingliz tili",
+    "russian": "Rus tili",
+    "history": "Tarix",
+    "law": "Huquq",
+    "mathematics": "Matematika",
+    "physics": "Fizika",
+    "biology": "Biologiya",
+    "chemistry": "Kimyo",
+    "mother_language": "Ona tili va adabiyoti",
+    "detail": {
+      "name": "Nomi",
+      "description": "Tavsifi",
+      "duration": "Davomiyligi",
+      "audience": "Kimlar uchun",
+      "teacher": "O'qituvchi",
+      "price": "Narxi",
+      "branches": "Filiallar"
+    },
+    "enroll_button": "📝 Shu kursga yozilish",
+    "placeholder_teacher": "Tayinlanmoqda",
+    "placeholder_price": "Ma'lum olinmoqda",
+    "descriptions": {
+      "ielts": "Xalqaro IELTS imtihoniga tayyorgarlik. Barcha 4 ko'nikma bo'yicha intensiv mashg'ulotlar.",
+      "cefr": "CEFR xalqaro standarti bo'yicha Ingliz tili darajasini oshirish.",
+      "english": "Boshlang'ichdan yuqori darajagacha Ingliz tili kurslari.",
+      "russian": "Rus tilini o'rganish va rivojlantirish kurslari.",
+      "history": "Jahon va O'zbekiston tarixi fanidan chuqurlashtirilgan darslar.",
+      "law": "Huquqshunoslik asoslari va qonunchilik bo'yicha bilimlar.",
+      "mathematics": "Matematika fanidan maktab va oliy o'quv yurti dasturlari.",
+      "physics": "Fizika fanidan nazariy va amaliy mashg'ulotlar.",
+      "biology": "Biologiya fanidan to'liq kurs.",
+      "chemistry": "Kimyo fanidan laboratoriya va nazariy darslar.",
+      "mother_language": "Ona tili va adabiyot fanidan chuqurlashtirilgan ta'lim."
+    },
+    "durations": {
+      "ielts": "3-6 oy",
+      "cefr": "4-8 oy",
+      "english": "6-12 oy",
+      "russian": "6-12 oy",
+      "history": "4-6 oy",
+      "law": "4-6 oy",
+      "mathematics": "6-12 oy",
+      "physics": "6-12 oy",
+      "biology": "6-12 oy",
+      "chemistry": "6-12 oy",
+      "mother_language": "4-6 oy"
+    },
+    "audiences": {
+      "ielts": "IELTS topshirmoqchi bo'lganlar",
+      "cefr": "CEFR sertifikati olmoqchi bo'lganlar",
+      "english": "Ingliz tilini o'rganmoqchi bo'lgan barcha",
+      "russian": "Rus tilini o'rganmoqchi bo'lgan barcha",
+      "history": "Tarix faniga qiziquvchilar",
+      "law": "Huquq sohasiga qiziquvchilar",
+      "mathematics": "Matematikani chuqur o'rganmoqchi bo'lganlar",
+      "physics": "Fizikani chuqur o'rganmoqchi bo'lganlar",
+      "biology": "Biologiyani chuqur o'rganmoqchi bo'lganlar",
+      "chemistry": "Kimyoni chuqur o'rganmoqchi bo'lganlar",
+      "mother_language": "Ona tili va adabiyotini chuqur o'rganmoqchi bo'lganlar"
+    }
+  },
+
+  "enroll": {
+    "ask_name": "Ismingizni kiriting:",
+    "ask_phone": "📞 Telefon raqamingizni kiriting:\nMasalan: +998901234567",
+    "ask_course": "Kursni tanlang:",
+    "ask_branch": "Filialni tanlang:",
+    "invalid_name": "❌ Iltimos, ismingizni kamida 2 harf bilan kiriting:",
+    "invalid_phone": "❌ Telefon raqamni to'g'ri kiriting:\nMasalan: +998901234567",
+    "success": "✅ Arizangiz muvaffaqiyatli qabul qilindi!\n\nTez orada siz bilan bog'lanamiz.",
+    "branch_urganch": "Urganch",
+    "branch_shovot": "Shovot",
+    "start": "Ro'yxatdan o'tishni boshlash uchun ismingizni yozing."
+  },
+
+  "branches": {
+    "title": "🏫 Filiallar",
+    "select": "Filialni tanlang:",
+    "urganch": {
+      "name": "Urganch filiali",
+      "phone": "📞 +998 95 223-00-65",
+      "address": "Manzil: Urganch shahri",
+      "map": "📍 Google Xaritada ko'rish"
+    },
+    "shovot": {
+      "name": "Shovot filiali",
+      "phone": "📞 +998 97 299-00-65",
+      "address": "Manzil: Shovot tumani",
+      "map": "📍 Google Xaritada ko'rish"
+    }
+  },
+
+  "contact": {
+    "title": "📞 Kontakt",
+    "description": "Biz bilan bog'lanish uchun quyidagi ma'lumotlardan foydalaning:",
+    "phone": "📞 Telefon",
+    "telegram": "💬 Telegram",
+    "instagram": "📸 Instagram",
+    "website": "🌐 Veb-sayt",
+    "location": "📍 Manzil"
+  },
+
+  "social": {
+    "title": "🌐 Ijtimoiy Tarmoqlar",
+    "description": "Bizni ijtimoiy tarmoqlarda kuzating:",
+    "telegram_channel": "📢 Telegram Kanal",
+    "instagram": "📸 Instagram",
+    "website": "🌐 testtoday.uz"
+  },
+
+  "about": {
+    "title": "ℹ️ Today Ta'lim Markazi",
+    "description": "Today Ta'lim Markazi — 7 yillik tajribaga ega zamonaviy ta'lim markazi.",
+    "stats": {
+      "experience": "7 yillik tajriba",
+      "students": "9000+ o'quvchilar",
+      "test_participants": "15000+ bepul test ishtirokchilari",
+      "success_rate": "89.6% muvaffaqiyat ko'rsatkichi",
+      "branches": "2 ta filial"
+    },
+    "sovrin_title": "🏆 TODAY Sovrini — 5-mavsum",
+    "sovrin_description": "25 ta savoldan iborat test:\n• 5 ta mantiqiy savol\n• 10 ta matematika\n• 10 ta ingliz tili"
+  },
+
+  "ai": {
+    "title": "🤖 AI Yordamchi",
+    "greeting": "Assalomu alaykun! Men Today Ta'lim Markazining AI yordamchisiman. Sizga qanday yordam bera olaman?",
+    "thinking": "⏳ Fikrlayapman...",
+    "error": "Kechirasiz, hozir javob bera olmayman. Iltimos keyinroq urinib ko'ring.",
+    "fallback": "Bizning operator ushbu savolga yordam beradi.",
+    "clear": "Mening xotiram tozalandi. Yangi savollaringizni berishingiz mumkin.",
+    "clear_button": "🧹 Xotirani tozalash",
+    "placeholder": "Savolingizni yozing..."
+  },
+
+  "notification": {
+    "new_application": "📥 Yangi Ariza",
+    "name": "👤 Ism",
+    "phone": "📞 Telefon",
+    "course": "📚 Kurs",
+    "branch": "🏫 Filial",
+    "time": "🕒 Vaqt",
+    "language": "🌍 Til"
+  },
+
+  "admin": {
+    "contacted": "Aloqaga chiqildi",
+    "enrolled": "Ro'yxatga olindi",
+    "rejected": "Rad etildi",
+    "status": "Holati",
+    "status_new": "🆕 Yangi",
+    "status_contacted": "📞 Aloqaga chiqildi",
+    "status_enrolled": "🎓 Ro'yxatga olindi",
+    "status_rejected": "❌ Rad etildi",
+    "statistics": "📊 Statistika",
+    "total_applications": "Jami arizalar",
+    "new_applications": "Yangi arizalar",
+    "contacted_applications": "Aloqaga chiqilganlar",
+    "enrolled_students": "Ro'yxatga olinganlar",
+    "rejected_applications": "Rad etilganlar",
+    "by_course": "Kurslar bo'yicha",
+    "no_applications": "Arizalar mavjud emas.",
+    "no_new": "Yangi arizalar mavjud emas.",
+    "no_contacted": "Aloqaga chiqilgan arizalar mavjud emas.",
+    "no_enrolled": "Ro'yxatga olingan talabalar mavjud emas.",
+    "no_rejected": "Rad etilgan arizalar mavjud emas.",
+    "status_updated": "Holat yangilandi"
+  },
+
+  "errors": {
+    "unknown": "Xatolik yuz berdi. Iltimos qayta urinib ko'ring.",
+    "not_found": "Ma'lumot topilmadi."
+  }
+}

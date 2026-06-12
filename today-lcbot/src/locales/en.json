@@ -1,0 +1,221 @@
+{
+  "language_prompt": "🌍 Choose language",
+  "language_selected": "🎓 Welcome to Today Ta'lim Markazi!",
+  "language_changed": "✅ Language changed: English",
+  "welcome_message": "🎓 Welcome to <b>Today Ta'lim Markazi</b> bot!\n\nChoose a section below:",
+  "deep_link_course": "📚 Welcome to <b>{course}</b>!\n\n{description}\n\n💰 Price: {price}\n📅 Duration: {duration}\n\n✅ Highlights:\n{highlights}\n\nIf you want to enroll, click the button below:",
+
+  "menu": {
+    "courses": "📚 Courses",
+    "ai_assistant": "🤖 AI Assistant",
+    "enroll": "📝 Enroll",
+    "branches": "🏫 Branches",
+    "contact": "📞 Contact",
+    "social": "🌐 Social Media",
+    "about": "ℹ️ About Us",
+    "change_language": "⚙️ Change Language",
+    "back": "⬅️ Back"
+  },
+
+  "courses": {
+    "title": "📚 Courses",
+    "select": "Select a course:",
+    "ielts": "IELTS",
+    "cefr": "CEFR",
+    "english": "English",
+    "russian": "Russian",
+    "history": "History",
+    "law": "Law",
+    "mathematics": "Mathematics",
+    "physics": "Physics",
+    "biology": "Biology",
+    "chemistry": "Chemistry",
+    "mother_language": "Mother Language and Literature",
+    "detail": {
+      "name": "Name",
+      "description": "Description",
+      "duration": "Duration",
+      "audience": "Target Audience",
+      "teacher": "Teacher",
+      "price": "Price",
+      "branches": "Branches"
+    },
+    "enroll_button": "📝 Enroll in this course",
+    "placeholder_teacher": "To be assigned",
+    "placeholder_price": "To be announced",
+    "descriptions": {
+      "ielts": "Preparation for the international IELTS exam. Intensive training in all 4 skills.",
+      "cefr": "Improve your English level according to the international CEFR standard.",
+      "english": "English courses from beginner to advanced level.",
+      "russian": "Russian language learning and improvement courses.",
+      "history": "In-depth lessons on world and Uzbek history.",
+      "law": "Fundamentals of law and legal knowledge.",
+      "mathematics": "School and university level mathematics programs.",
+      "physics": "Theoretical and practical physics lessons.",
+      "biology": "Complete biology course.",
+      "chemistry": "Laboratory and theoretical chemistry lessons.",
+      "mother_language": "In-depth study of mother language and literature."
+    },
+    "durations": {
+      "ielts": "3-6 months",
+      "cefr": "4-8 months",
+      "english": "6-12 months",
+      "russian": "6-12 months",
+      "history": "4-6 months",
+      "law": "4-6 months",
+      "mathematics": "6-12 months",
+      "physics": "6-12 months",
+      "biology": "6-12 months",
+      "chemistry": "6-12 months",
+      "mother_language": "4-6 months"
+    },
+    "audiences": {
+      "ielts": "For those planning to take IELTS",
+      "cefr": "For those seeking CEFR certification",
+      "english": "For anyone wanting to learn English",
+      "russian": "For anyone wanting to learn Russian",
+      "history": "For history enthusiasts",
+      "law": "For those interested in law",
+      "mathematics": "For those wanting to master mathematics",
+      "physics": "For those wanting to master physics",
+      "biology": "For those wanting to master biology",
+      "chemistry": "For those wanting to master chemistry",
+      "mother_language": "For those wanting to master their mother language and literature"
+    },
+    "prices": {
+      "ielts": "550 000 UZS/month",
+      "cefr": "350 000 UZS/month",
+      "english": "350 000 UZS/month",
+      "russian": "350 000 UZS/month",
+      "history": "350 000 UZS/month",
+      "law": "350 000 UZS/month",
+      "mathematics": "350 000 UZS/month",
+      "physics": "350 000 UZS/month",
+      "biology": "350 000 UZS/month",
+      "chemistry": "350 000 UZS/month",
+      "mother_language": "350 000 UZS/month"
+    }
+  },
+
+  "enroll": {
+    "ask_name": "Enter your name:",
+    "ask_phone": "📞 Enter your phone number:\nExample: +998901234567",
+    "ask_course": "Select a course:",
+    "ask_branch": "Select a branch:",
+    "invalid_name": "❌ Please enter a name with at least 2 letters:",
+    "invalid_phone": "❌ Please enter a valid phone number:\nExample: +998901234567",
+    "success": "✅ Your application has been successfully received!\n\nOur staff will contact you shortly.",
+    "cancel": "Cancel",
+    "cancel_confirm": "❌ Registration cancelled.",
+    "start": "Write your name to start registration.",
+    "branch_urganch": "Urganch",
+    "branch_shovot": "Shovot"
+  },
+
+  "branches": {
+    "title": "🏫 Branches",
+    "select": "Select a branch:",
+    "urganch": {
+      "name": "Urganch Branch",
+      "phone": "📞 +998 95 223-00-65",
+      "address": "Address: Urganch city",
+      "map": "📍 View on Google Maps"
+    },
+    "shovot": {
+      "name": "Shovot Branch",
+      "phone": "📞 +998 97 299-00-65",
+      "address": "Address: Shovot district",
+      "map": "📍 View on Google Maps"
+    }
+  },
+
+  "contact": {
+    "title": "📞 Contact",
+    "description": "Contact us through:",
+    "phone": "📞 Phone",
+    "telegram": "💬 Telegram",
+    "instagram": "📸 Instagram",
+    "website": "🌐 Website",
+    "location": "📍 Location"
+  },
+
+  "social": {
+    "title": "🌐 Social Media",
+    "description": "Follow us on social media:",
+    "telegram_channel": "📢 Telegram Channel",
+    "instagram": "📸 Instagram",
+    "website": "🌐 testtoday.uz"
+  },
+
+  "about": {
+    "title": "ℹ️ About Today Ta'lim Markazi",
+    "description": "Today Ta'lim Markazi is a modern educational center with 7 years of experience.",
+    "stats": {
+      "experience": "7 years of experience",
+      "students": "9000+ students",
+      "test_participants": "15000+ free test participants",
+      "success_rate": "89.6% success rate",
+      "branches": "2 branches"
+    },
+    "sovrin_title": "🏆 TODAY Sovrini — Season 5",
+    "sovrin_description": "25-question test:\n• 5 logical reasoning\n• 10 mathematics\n• 10 English"
+  },
+
+  "ai": {
+    "title": "🤖 AI Assistant",
+    "greeting": "Hello! I am the AI assistant of Today Ta'lim Markazi. How can I help you?\n\nI can:\n• Tell you about courses\n• Explain IELTS and CEFR\n• Give study advice\n• Branch information\n• Answer FAQs",
+    "thinking": "⏳ Thinking...",
+    "error": "Sorry, I cannot answer right now. Please try again later.",
+    "fallback": "Sorry, I couldn't answer this question. Our operators will contact you shortly.",
+    "transfer_to_human": "🔄 I have forwarded your question to our operators. They will contact you soon.",
+    "transfer_button": "👨‍💼 Talk to operator",
+    "clear": "My memory has been cleared. You can ask new questions.",
+    "clear_button": "🧹 Clear memory",
+    "placeholder": "Write your question..."
+  },
+
+  "notification": {
+    "new_application": "📥 New Application",
+    "name": "👤 Name",
+    "phone": "📞 Phone",
+    "course": "📚 Course",
+    "branch": "🏫 Branch",
+    "time": "🕒 Time",
+    "language": "🌍 Language"
+  },
+
+  "admin": {
+    "contacted": "Contacted",
+    "enrolled": "Enrolled",
+    "rejected": "Rejected",
+    "status": "Status",
+    "status_new": "🆕 New",
+    "status_contacted": "📞 Contacted",
+    "status_enrolled": "🎓 Enrolled",
+    "status_rejected": "❌ Rejected",
+    "statistics": "📊 Statistics",
+    "total_applications": "Total applications",
+    "new_applications": "New applications",
+    "contacted_applications": "Contacted",
+    "enrolled_students": "Enrolled students",
+    "rejected_applications": "Rejected",
+    "by_course": "By course",
+    "by_branch": "By branch",
+    "by_status": "By status",
+    "no_applications": "No applications found.",
+    "no_new": "No new applications.",
+    "no_contacted": "No contacted applications.",
+    "no_enrolled": "No enrolled students.",
+    "no_rejected": "No rejected applications.",
+    "status_updated": "Status updated",
+    "applications_list": "📋 Applications list ({status}):",
+    "ai_transfer": "🔄 AI to operator transfer",
+    "ai_user_message": "User message: {message}"
+  },
+
+  "errors": {
+    "unknown": "An error occurred. Please try again.",
+    "not_found": "Information not found.",
+    "admin_only": "❌ This command is for admins only."
+  }
+}
