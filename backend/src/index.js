@@ -46,14 +46,16 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: "Internal server error" });
 });
 
-const PORT = process.env.PORT || 4000;
-const server = app.listen(PORT, () => {
-  console.log(`🚀 Backend running on http://localhost:${PORT}`);
-});
-
-process.on("SIGTERM", async () => {
-  await prisma.$disconnect();
-  server.close(() => process.exit(0));
-});
-
 module.exports = { app, prisma };
+
+if (require.main === module) {
+  const PORT = process.env.PORT || 4000;
+  const server = app.listen(PORT, () => {
+    console.log(`🚀 Backend running on http://localhost:${PORT}`);
+  });
+
+  process.on("SIGTERM", async () => {
+    await prisma.$disconnect();
+    server.close(() => process.exit(0));
+  });
+}
