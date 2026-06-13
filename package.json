@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
-    "postbuild": "node scripts/postbuild.js",
     "start": "node server.js",
     "lint": "eslint",
     "db:generate": "prisma generate",

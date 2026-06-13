@@ -1,9 +1,11 @@
+const http = require("http");
 const { spawn, execSync } = require("child_process");
 const path = require("path");
+const next = require("next");
 
-const PORT = process.env.PORT || 3000;
-const STANDALONE = path.join(__dirname, ".next", "standalone", "server.js");
+const PORT = parseInt(process.env.PORT, 10) || 3000;
 
+// Run DB migrations at startup
 if (process.env.DATABASE_URL) {
   console.log("[server] Running migrations...");
   execSync("npx prisma migrate deploy", { stdio: "inherit", cwd: __dirname });
@@ -11,6 +13,7 @@ if (process.env.DATABASE_URL) {
   execSync("node prisma/seed.js", { stdio: "inherit", cwd: __dirname });
 }
 
+// Start Telegram bot (non-blocking)
 const bot = spawn("python", ["main.py"], {
   cwd: path.join(__dirname, "tbot"),
   stdio: "inherit",
@@ -18,10 +21,16 @@ const bot = spawn("python", ["main.py"], {
 });
 bot.on("error", () => {});
 
-console.log(`[server] Starting Next.js standalone on 0.0.0.0:${PORT}`);
-const server = spawn("node", [STANDALONE], {
-  stdio: "inherit",
-  env: { ...process.env, PORT: String(PORT), HOSTNAME: "0.0.0.0" },
-  cwd: path.join(__dirname, ".next", "standalone"),
+// Prepare and start Next.js in production mode
+const app = next({ dev: false, dir: __dirname });
+const handle = app.getRequestHandler();
+
+app.prepare().then(() => {
+  const server = http.createServer((req, res) => {
+    handle(req, res);
+  });
+
+  server.listen(PORT, "0.0.0.0", () => {
+    console.log(`[server] Production server running on 0.0.0.0:${PORT}`);
+  });
 });
-server.on("exit", (code) => process.exit(code));
