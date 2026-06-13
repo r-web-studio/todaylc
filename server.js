@@ -2,6 +2,7 @@ const { spawn, execSync } = require("child_process");
 const path = require("path");
 
 const PORT = process.env.PORT || 3000;
+const STANDALONE = path.join(__dirname, ".next", "standalone", "server.js");
 
 if (process.env.DATABASE_URL) {
   console.log("[server] Running migrations...");
@@ -17,9 +18,10 @@ const bot = spawn("python", ["main.py"], {
 });
 bot.on("error", () => {});
 
-const next = spawn("node", [
-  path.join(__dirname, "node_modules", "next", "dist", "bin", "next"),
-  "start", "-p", String(PORT), "-H", "0.0.0.0",
-], { stdio: "inherit", env: { ...process.env }, cwd: __dirname });
-
-next.on("exit", (code) => process.exit(code));
+console.log(`[server] Starting Next.js standalone on 0.0.0.0:${PORT}`);
+const server = spawn("node", [STANDALONE], {
+  stdio: "inherit",
+  env: { ...process.env, PORT: String(PORT), HOSTNAME: "0.0.0.0" },
+  cwd: path.join(__dirname, ".next", "standalone"),
+});
+server.on("exit", (code) => process.exit(code));
