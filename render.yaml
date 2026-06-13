@@ -3,7 +3,7 @@ services:
     name: today-lc
     runtime: node
     plan: free
-    buildCommand: cd backend && npm install && npx prisma generate && cd .. && npm install && cd tbot && pip install -r requirements.txt --quiet && cd .. && npm run build
+    buildCommand: npm install && cd tbot && pip install -r requirements.txt --quiet && cd .. && npx prisma generate && npm run build
     startCommand: node server.js
     envVars:
       - key: NODE_VERSION

@@ -1,56 +1,25 @@
+const { spawn, execSync } = require("child_process");
 const path = require("path");
-const { spawn } = require("child_process");
-const { execSync } = require("child_process");
-const next = require("next");
-const { app } = require("./backend/src/index");
 
-const PORT = parseInt(process.env.PORT, 10) || 3000;
-const HOST = "0.0.0.0";
+const PORT = process.env.PORT || 3000;
 
-function run(cmd, label) {
-  console.log(`[deploy] ${label}...`);
-  try {
-    execSync(cmd, { stdio: "inherit", cwd: __dirname });
-    console.log(`[deploy] ${label} OK`);
-  } catch (e) {
-    console.error(`[deploy] ${label} FAILED:`, e.message);
-    process.exit(1);
-  }
+if (process.env.DATABASE_URL) {
+  console.log("[server] Running migrations...");
+  execSync("npx prisma migrate deploy", { stdio: "inherit", cwd: __dirname });
+  console.log("[server] Seeding database...");
+  execSync("node prisma/seed.js", { stdio: "inherit", cwd: __dirname });
 }
 
-async function main() {
-  // Run DB migrations + seed at startup
-  if (process.env.DATABASE_URL) {
-    run("npx prisma migrate deploy", "Running migrations");
-    run("node prisma/seed.js", "Seeding database");
-  }
-
-  // Prepare Next.js (production mode)
-  const nextApp = next({ dev: false });
-  const handle = nextApp.getRequestHandler();
-  await nextApp.prepare();
-
-  // All non-API routes go to Next.js
-  app.all("*", (req, res) => handle(req, res));
-
-  // Start Telegram bot as child process (non-blocking)
-  const botDir = path.join(__dirname, "tbot");
-  const bot = spawn("python3", ["main.py"], {
-    cwd: botDir,
-    stdio: "inherit",
-    env: { ...process.env, RENDER_EXTERNAL_URL: "" },
-  });
-  bot.on("error", (err) => console.log("[deploy] Telegram bot unavailable:", err.message));
-  bot.on("spawn", () => console.log("[deploy] Telegram bot started"));
-  bot.on("exit", (code) => console.log(`[deploy] Telegram bot exited (code ${code})`));
-
-  // Start the combined server
-  app.listen(PORT, HOST, () => {
-    console.log(`[deploy] Server running on ${HOST}:${PORT}`);
-  });
-}
-
-main().catch((e) => {
-  console.error("[deploy] Fatal error:", e);
-  process.exit(1);
+const bot = spawn("python", ["main.py"], {
+  cwd: path.join(__dirname, "tbot"),
+  stdio: "inherit",
+  env: { ...process.env, RENDER_EXTERNAL_URL: "" },
 });
+bot.on("error", () => {});
+
+const next = spawn("node", [
+  path.join(__dirname, "node_modules", "next", "dist", "bin", "next"),
+  "start", "-p", String(PORT), "-H", "0.0.0.0",
+], { stdio: "inherit", env: { ...process.env }, cwd: __dirname });
+
+next.on("exit", (code) => process.exit(code));
