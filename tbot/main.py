@@ -28,8 +28,6 @@ BASE_URL = os.getenv("RENDER_EXTERNAL_URL")
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher(storage=MemoryStorage())
 
-dp.include_routers(start.router, info.router, enroll.router, admin.router)
-
 app = FastAPI()
 
 
@@ -92,6 +90,7 @@ async def webhook(request: Request):
 @app.on_event("startup")
 async def on_startup():
     validate_config()
+    dp.include_routers(start.router, info.router, enroll.router, admin.router)
     if not BASE_URL:
         logger.warning("RENDER_EXTERNAL_URL not set — falling back to long polling")
         asyncio.create_task(dp.start_polling(bot))
@@ -106,8 +105,4 @@ async def on_shutdown():
     await bot.session.close()
 
 
-if __name__ == "__main__":
-    import uvicorn
 
-    port = int(os.getenv("PORT", "8080"))
-    uvicorn.run("main:app", host="0.0.0.0", port=port)
