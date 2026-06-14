@@ -39,3 +39,20 @@ def get_enrollments(limit: int = 50) -> list[dict]:
     data = _load()
     data.sort(key=lambda r: r.get("created_at", ""), reverse=True)
     return data[:limit]
+
+
+def get_enrollment_by_id(enrollment_id: int) -> Optional[dict]:
+    data = _load()
+    for r in data:
+        if r["id"] == enrollment_id:
+            return r
+    return None
+
+
+def delete_enrollment_by_id(enrollment_id: int) -> bool:
+    data = _load()
+    new_data = [r for r in data if r["id"] != enrollment_id]
+    if len(new_data) == len(data):
+        return False
+    _save(new_data)
+    return True
