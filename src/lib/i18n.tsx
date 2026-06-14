@@ -65,6 +65,7 @@ const t: Record<string, { uz: string; ru: string; en: string }> = {
   project: { uz: "Loyiha", ru: "Проект", en: "Project" },
   contact: { uz: "Aloqa", ru: "Контакты", en: "Contact" },
   enroll_now: { uz: "Kursga yozilish", ru: "Записаться", en: "Enroll now" },
+  open_bot: { uz: "Telegram bot", ru: "Telegram бот", en: "Telegram bot" },
 };
 
 export function tr(key: string, lang: Language): string {

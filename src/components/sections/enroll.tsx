@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles } from "lucide-react";
+import { Sparkles, ExternalLink } from "lucide-react";
 import { useLang, getCourseCategories, tr } from "@/lib/i18n";
 
 function openBot(courseId: string | null) {
@@ -76,6 +76,16 @@ export function Enroll() {
               )}
             </div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <button
+            onClick={() => window.open("https://t.me/todaylcbot", "_blank")}
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm text-white/70 transition-all hover:border-gold/50 hover:text-gold"
+          >
+            <ExternalLink size={16} />
+            {tr("open_bot", lang)}
+          </button>
         </div>
       </div>
     </section>

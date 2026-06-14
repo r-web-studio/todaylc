@@ -41,7 +41,7 @@ class EnrollPayload(BaseModel):
     course: str
 
 
-@app.get("/", response_class=HTMLResponse)
+@app.api_route("/", methods=["GET", "POST", "HEAD"], response_class=HTMLResponse)
 async def index():
     return """
 <!DOCTYPE html>
