@@ -11,7 +11,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import Update
 from pydantic import BaseModel
 
-from config import BOT_TOKEN
+from config import BOT_TOKEN, validate_config
 from handlers import start, info, enroll, admin
 from storage import save_enrollment
 
@@ -91,6 +91,7 @@ async def webhook(request: Request):
 
 @app.on_event("startup")
 async def on_startup():
+    validate_config()
     if not BASE_URL:
         logger.warning("RENDER_EXTERNAL_URL not set — falling back to long polling")
         asyncio.create_task(dp.start_polling(bot))
