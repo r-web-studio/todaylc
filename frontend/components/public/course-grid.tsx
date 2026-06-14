@@ -82,8 +82,8 @@ export function CourseGrid({ onEnrollClick }: CourseGridProps) {
           transition={{ duration: 0.6 }}
           className="mx-auto mb-16 max-w-2xl text-center"
         >
-          <h2 className="font-heading text-4xl font-bold text-primary md:text-5xl">Bizning kurslar</h2>
-          <p className="mt-4 text-lg text-muted-foreground">Premium yo&apos;nalishlarda professional ta&apos;lim</p>
+          <h2 className="font-heading text-4xl font-bold text-primary md:text-5xl">Наши курсы</h2>
+          <p className="mt-4 text-lg text-muted-foreground">Профессиональное образование по самым современным методикам</p>
         </motion.div>
 
         {isLoading ? (

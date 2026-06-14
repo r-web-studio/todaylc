@@ -34,10 +34,10 @@ function buildCourseKeyboard() {
 
 function buildMainMenuKeyboard() {
   return [
-    [{ text: "Kurslar", callback_data: "menu_courses" }],
-    [{ text: "Narxlar", callback_data: "menu_prices" }],
-    [{ text: "Ma'lumot", callback_data: "menu_info" }],
-    [{ text: "Kursga yozilish", callback_data: "menu_enroll" }],
+    [{ text: "Курсы", callback_data: "menu_courses" }],
+    [{ text: "Цены", callback_data: "menu_prices" }],
+    [{ text: "Информация", callback_data: "menu_info" }],
+    [{ text: "Записаться", callback_data: "menu_enroll" }],
   ];
 }
 
@@ -52,19 +52,19 @@ function buildLanguageKeyboard() {
 async function handleStart(chatId: number, courseId: string | null) {
   if (!courseId) {
     await sendMessage(chatId,
-      "👋 Assalomu alaykum! Today Ta'lim Markazi botiga xush kelibsiz!",
+      "👋 Ассаламу алейкум! Добро пожаловать в бот Today Ta'lim Markazi!",
       { reply_markup: { inline_keyboard: buildLanguageKeyboard() } }
     );
     return;
   }
   const course = courses.find((c) => c.id === courseId);
   if (!course) {
-    await sendMessage(chatId, "❌ Bunday kurs topilmadi.");
+    await sendMessage(chatId, "❌ Такой курс не найден.");
     return;
   }
   sessions.set(chatId, { chat_id: chatId, step: "awaiting_name", course_title: course.title });
   await sendMessage(chatId,
-    `✅ <b>${course.icon} ${course.title}</b>\n\n💰 ${course.price}\n\nIsmingizni kiriting:`
+    `✅ <b>${course.icon} ${course.title}</b>\n\n💰 ${course.price}\n\nВведите ваше имя:`
   );
 }
 
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       if (data.startsWith("lang_")) {
         const lang = data.replace("lang_", "");
         sessions.set(chatId, { chat_id: chatId, step: "main_menu" });
-        await sendMessage(chatId, "✅ Til tanlandi!", {
+        await sendMessage(chatId, "✅ Язык выбран!", {
           reply_markup: { inline_keyboard: buildMainMenuKeyboard() },
         });
         return NextResponse.json({ ok: true });
@@ -90,15 +90,65 @@ export async function POST(request: NextRequest) {
 
       if (data === "menu_courses") {
         const cats = [
-          { name: "🇬🇧 Ingliz tili", courses: ["IELTS", "CEFR", "Ingliz tili"] },
-          { name: "🗣 Speaking", courses: ["Speaking"] },
-          { name: "🌍 Boshqa til kurslari", courses: ["Rus tili"] },
-          { name: "📚 Maktab fanlari", courses: ["Matematika", "Fizika", "Biologiya", "Kimyo", "Tarix", "Huquq", "Ona tili"] },
+          {
+            name: "🇬🇧 Английский язык (General)",
+            courses: [
+              "Grammar (foundation) – 2 мес – 400 000 сум",
+              "Beginner – 1 мес – 400 000 сум",
+              "Elementary – 2 мес – 400 000 сум",
+              "Pre-intermediate – 2 мес – 450 000 сум",
+              "Grammar B1-B2 – 3 мес – 400 000 сум",
+              "Pre CEFR/IELTS – 2 мес – 500 000 сум",
+              "IELTS – 5 мес – 550 000 сум",
+              "CEFR – 4 мес – 550 000 сум",
+            ],
+            note: "Индивидуальные и вечерние курсы: оплата в 2 раза (2x) выше указанных цен.",
+          },
+          {
+            name: "🗣 Разговорные курсы",
+            courses: [
+              "Speaking (в группе) – 500 000 сум",
+              "Speaking (индивидуально) – 1 000 000 сум",
+            ],
+          },
+          {
+            name: "🌍 Другие языковые курсы",
+            courses: [
+              "Турецкий язык – 3 мес – 500 000 сум",
+              "Корейский язык – 3-6 мес – 500 000 сум",
+              "Немецкий язык – 3-6 мес – 500 000 сум",
+              "Русский язык (разговорный) – 3 мес – 400 000 сум",
+            ],
+          },
+          {
+            name: "📚 Школьные предметы",
+            courses: [
+              "Родной язык – обычный – 6 мес – 450 000 сум",
+              "Математика – обычный – 6 мес – 450 000 сум",
+              "Биология – обычный – 6 мес – 450 000 сум",
+              "Химия – обычный – 6 мес – 450 000 сум",
+              "История – обычный – 6 мес – 450 000 сум",
+              "Право – обычный – 6 мес – 450 000 сум",
+              "Русский язык – обычный – 6 мес – 450 000 сум",
+              "Национальный сертификат – 3-5 мес – 500 000 сум",
+            ],
+          },
+          {
+            name: "👶 Детские группы (2-3-4 классы)",
+            courses: [
+              "Английский язык – 9 мес – 350 000 сум",
+              "Математика – 6 мес – 350 000 сум",
+              "Русский язык – 6 мес – 350 000 сум",
+              "Корейский язык – 6 мес – 350 000 сум",
+              "Президентская школа Математика (PM) – 5 мес – 450 000 сум",
+            ],
+          },
         ];
-        let text = "<b>Mavjud kurslar:</b>\n\n";
+        let text = "<b>Доступные курсы:</b>\n\n";
         cats.forEach((cat) => {
           text += `<b>${cat.name}</b>\n`;
           cat.courses.forEach((c) => { text += `  • ${c}\n`; });
+          if ("note" in cat && cat.note) text += `  <i>${cat.note}</i>\n`;
           text += "\n";
         });
         await sendMessage(chatId, text, {
@@ -108,12 +158,70 @@ export async function POST(request: NextRequest) {
       }
 
       if (data === "menu_prices") {
-        let text = "<b>Kurs narxlari:</b>\n\n";
-        courses.forEach((c) => {
-          text += `${c.icon} <b>${c.title}</b> — ${c.price}\n`;
+        const cats = [
+          {
+            name: "🇬🇧 Английский язык (General)",
+            courses: [
+              "Grammar (foundation) – 2 мес – 400 000 сум",
+              "Beginner – 1 мес – 400 000 сум",
+              "Elementary – 2 мес – 400 000 сум",
+              "Pre-intermediate – 2 мес – 450 000 сум",
+              "Grammar B1-B2 – 3 мес – 400 000 сум",
+              "Pre CEFR/IELTS – 2 мес – 500 000 сум",
+              "IELTS – 5 мес – 550 000 сум",
+              "CEFR – 4 мес – 550 000 сум",
+            ],
+            note: "Индивидуальные и вечерние курсы: оплата в 2 раза (2x) выше указанных цен.",
+          },
+          {
+            name: "🗣 Разговорные курсы",
+            courses: [
+              "Speaking (в группе) – 500 000 сум",
+              "Speaking (индивидуально) – 1 000 000 сум",
+            ],
+          },
+          {
+            name: "🌍 Другие языковые курсы",
+            courses: [
+              "Турецкий язык – 3 мес – 500 000 сум",
+              "Корейский язык – 3-6 мес – 500 000 сум",
+              "Немецкий язык – 3-6 мес – 500 000 сум",
+              "Русский язык (разговорный) – 3 мес – 400 000 сум",
+            ],
+          },
+          {
+            name: "📚 Школьные предметы",
+            courses: [
+              "Родной язык – обычный – 6 мес – 450 000 сум",
+              "Математика – обычный – 6 мес – 450 000 сум",
+              "Биология – обычный – 6 мес – 450 000 сум",
+              "Химия – обычный – 6 мес – 450 000 сум",
+              "История – обычный – 6 мес – 450 000 сум",
+              "Право – обычный – 6 мес – 450 000 сум",
+              "Русский язык – обычный – 6 мес – 450 000 сум",
+              "Национальный сертификат – 3-5 мес – 500 000 сум",
+            ],
+          },
+          {
+            name: "👶 Детские группы (2-3-4 классы)",
+            courses: [
+              "Английский язык – 9 мес – 350 000 сум",
+              "Математика – 6 мес – 350 000 сум",
+              "Русский язык – 6 мес – 350 000 сум",
+              "Корейский язык – 6 мес – 350 000 сум",
+              "Президентская школа Математика (PM) – 5 мес – 450 000 сум",
+            ],
+          },
+        ];
+        let text = "<b>Доступные курсы:</b>\n\n";
+        cats.forEach((cat) => {
+          text += `<b>${cat.name}</b>\n`;
+          cat.courses.forEach((c) => { text += `  • ${c}\n`; });
+          if ("note" in cat && cat.note) text += `  <i>${cat.note}</i>\n`;
+          text += "\n";
         });
         await sendMessage(chatId, text, {
-          reply_markup: { inline_keyboard: [[{ text: "Orqaga", callback_data: "menu_back" }]] },
+          reply_markup: { inline_keyboard: [[{ text: "Назад", callback_data: "menu_back" }]] },
         });
         return NextResponse.json({ ok: true });
       }
@@ -127,20 +235,20 @@ export async function POST(request: NextRequest) {
           "🌐 https://todaylc.onrender.com/\n" +
           "📱 Instagram: @today_talim_markazi\n" +
           "📱 Telegram: @today_LC",
-          { reply_markup: { inline_keyboard: [[{ text: "Orqaga", callback_data: "menu_back" }]] } }
+          { reply_markup: { inline_keyboard: [[{ text: "Назад", callback_data: "menu_back" }]] } }
         );
         return NextResponse.json({ ok: true });
       }
 
       if (data === "menu_enroll") {
-        await sendMessage(chatId, "Kurslardan birini tanlang:", {
+        await sendMessage(chatId, "Выберите курс:", {
           reply_markup: { inline_keyboard: buildCourseKeyboard() },
         });
         return NextResponse.json({ ok: true });
       }
 
       if (data === "menu_back") {
-        await sendMessage(chatId, "Asosiy menyu:", {
+        await sendMessage(chatId, "Главное меню:", {
           reply_markup: { inline_keyboard: buildMainMenuKeyboard() },
         });
         return NextResponse.json({ ok: true });
@@ -175,7 +283,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (text === "/courses") {
-      await sendMessage(chatId, "Kurslardan birini tanlang:", {
+      await sendMessage(chatId, "Выберите курс:", {
         reply_markup: { inline_keyboard: buildCourseKeyboard() },
       });
       return NextResponse.json({ ok: true });
@@ -185,23 +293,23 @@ export async function POST(request: NextRequest) {
 
     if (session && session.step === "awaiting_name") {
       if (text.trim().length < 2) {
-        await sendMessage(chatId, "❌ Iltimos, ismingizni kamida 2 harf bilan kiriting:");
+        await sendMessage(chatId, "❌ Пожалуйста, введите имя минимум из 2 букв:");
         return NextResponse.json({ ok: true });
       }
       session.step = "awaiting_phone";
       session.name = text.trim();
       sessions.set(chatId, session);
-      await sendMessage(chatId, "📞 Telefon raqamingizni kiriting:\nMasalan: +998901234567");
+      await sendMessage(chatId, "📞 Введите ваш номер телефона:\nНапример: +998901234567");
       return NextResponse.json({ ok: true });
     }
 
     if (session && session.step === "awaiting_phone") {
       if (!/^[\+\d\s\-\(\)]{7,20}$/.test(text.trim())) {
-        await sendMessage(chatId, "❌ Telefon raqamni to'g'ri kiriting:\nMasalan: +998901234567");
+        await sendMessage(chatId, "❌ Введите правильный номер телефона:\nНапример: +998901234567");
         return NextResponse.json({ ok: true });
       }
 
-      const courseTitle = session.course_title || "Kurs";
+      const courseTitle = session.course_title || "Курс";
       let course = await prisma.course.findFirst({
         where: { OR: [{ title: courseTitle }, { titleUz: courseTitle }] },
       });
@@ -210,8 +318,8 @@ export async function POST(request: NextRequest) {
           data: {
             title: courseTitle,
             titleUz: courseTitle,
-            description: `${courseTitle} kursi`,
-            duration: "Noma'lum",
+            description: `Курс ${courseTitle}`,
+            duration: "Неизвестно",
             price: 0,
             branch: "BOTH",
           },
@@ -229,13 +337,13 @@ export async function POST(request: NextRequest) {
 
       sessions.delete(chatId);
       await sendMessage(chatId,
-        "✅ <b>Arizangiz qabul qilindi!</b>\n\nTez orada siz bilan bog'lanamiz.\n\n📞 Today Ta'lim Markazi"
+        "✅ <b>Ваша заявка принята!</b>\n\nМы свяжемся с вами в ближайшее время.\n\n📞 Today Ta'lim Markazi"
       );
       return NextResponse.json({ ok: true });
     }
 
     await sendMessage(chatId,
-      "Assalomu alaykum! Ro'yxatdan o'tish uchun /start tugmasini bosing.",
+      "Ассаламу алейкум! Нажмите /start для регистрации.",
       { reply_markup: { inline_keyboard: buildMainMenuKeyboard() } }
     );
 

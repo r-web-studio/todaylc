@@ -2,7 +2,6 @@ import { Navbar } from "@/components/sections/navbar";
 import { Hero } from "@/components/sections/hero";
 import { Stats } from "@/components/sections/stats";
 import { Courses } from "@/components/sections/courses";
-import { Prices } from "@/components/sections/prices";
 import { WhyUs } from "@/components/sections/why-us";
 import { Teachers } from "@/components/sections/teachers";
 import { Testimonials } from "@/components/sections/testimonials";
@@ -19,7 +18,6 @@ export default function Home() {
       <Hero />
       <Stats />
       <Courses />
-      <Prices />
       <WhyUs />
       <Teachers />
       <Testimonials />

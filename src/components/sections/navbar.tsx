@@ -5,21 +5,26 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { useLang, tr } from "@/lib/i18n";
 
-const navLinks = [
-  { href: "#hero", label: "Bosh sahifa" },
-  { href: "#courses", label: "Kurslar" },
-  { href: "#branches", label: "Filiallar" },
-  { href: "#sovrin", label: "Loyiha" },
-  { href: "#contact", label: "Aloqa" },
+const navLinkKeys = [
+  { href: "#hero", key: "home" },
+  { href: "#courses", key: "courses" },
+  { href: "#branches", key: "branches" },
+  { href: "#sovrin", key: "project" },
+  { href: "#contact", key: "contact" },
 ];
 
 export function Navbar() {
+  const { lang } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#hero");
   const [lastScroll, setLastScroll] = useState(0);
+
+  const navLinks = navLinkKeys.map((l) => ({ href: l.href, label: tr(l.key, lang) }));
 
   useEffect(() => {
     const onScroll = () => {
@@ -42,7 +47,7 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, [lastScroll]);
+  }, [lastScroll, lang]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -107,7 +112,7 @@ export function Navbar() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -127,8 +132,9 @@ export function Navbar() {
               />
             </a>
           ))}
+          <LanguageSwitcher />
           <Button size="sm" onClick={openBot}>
-            Kursga yozilish
+            {tr("enroll_now", lang)}
           </Button>
         </nav>
 
@@ -181,10 +187,17 @@ export function Navbar() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <LanguageSwitcher />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
               <Button size="lg" onClick={openBot}>
-                Kursga yozilish
+                {tr("enroll_now", lang)}
               </Button>
             </motion.div>
           </motion.div>
