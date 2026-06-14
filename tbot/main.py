@@ -31,6 +31,7 @@ BASE_URL = os.getenv("RENDER_EXTERNAL_URL")
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher(storage=MemoryStorage())
 
+polling_task = None
 app = FastAPI()
 
 
@@ -92,11 +93,12 @@ async def webhook(request: Request):
 
 @app.on_event("startup")
 async def on_startup():
+    global polling_task
     validate_config()
     dp.include_routers(start_router, info_router, enroll_router, admin_router)
     if not BASE_URL:
         logger.warning("RENDER_EXTERNAL_URL not set — falling back to long polling")
-        asyncio.create_task(dp.start_polling(bot))
+        polling_task = asyncio.create_task(dp.start_polling(bot))
         return
     webhook_url = f"{BASE_URL.rstrip('/')}{WEBHOOK_PATH}"
     await bot.set_webhook(webhook_url, secret_token=WEBHOOK_SECRET)
@@ -105,6 +107,9 @@ async def on_startup():
 
 @app.on_event("shutdown")
 async def on_shutdown():
+    global polling_task
+    if polling_task:
+        polling_task.cancel()
     await bot.session.close()
 
 
