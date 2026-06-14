@@ -2,7 +2,7 @@ from aiogram import Router, F
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.fsm.context import FSMContext
 
-from l10n import get_text, format_courses_text, format_prices_text
+from l10n import get_text, format_courses_text
 from handlers.start import _main_menu_kb
 
 router = Router()
@@ -22,23 +22,6 @@ async def show_courses(callback: CallbackQuery, state: FSMContext):
     )
 
     await callback.message.edit_text(courses_text, parse_mode="HTML", reply_markup=back_kb)
-    await callback.answer()
-
-
-@router.callback_query(F.data == "prices")
-async def show_prices(callback: CallbackQuery, state: FSMContext):
-    data = await state.get_data()
-    lang = data.get("language", "uz")
-
-    prices_text = format_prices_text(lang)
-
-    back_kb = InlineKeyboardMarkup(
-        inline_keyboard=[
-            [InlineKeyboardButton(text=get_text(lang, "back_btn"), callback_data="back_to_menu")]
-        ]
-    )
-
-    await callback.message.edit_text(prices_text, parse_mode="HTML", reply_markup=back_kb)
     await callback.answer()
 
 

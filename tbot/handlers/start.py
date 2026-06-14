@@ -18,7 +18,6 @@ def language_keyboard() -> InlineKeyboardMarkup:
 def _main_menu_kb(lang: str) -> InlineKeyboardMarkup:
     buttons = [
         [InlineKeyboardButton(text=get_text(lang, "courses_btn"), callback_data="courses")],
-        [InlineKeyboardButton(text=get_text(lang, "prices_btn"), callback_data="prices")],
         [InlineKeyboardButton(text=get_text(lang, "info_btn"), callback_data="info")],
         [InlineKeyboardButton(text=get_text(lang, "enroll_btn"), callback_data="enroll")],
     ]
