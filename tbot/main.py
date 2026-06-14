@@ -12,7 +12,10 @@ from aiogram.types import Update
 from pydantic import BaseModel
 
 from config import BOT_TOKEN, validate_config
-from handlers import start, info, enroll, admin
+from handlers.start import router as start_router
+from handlers.info import router as info_router
+from handlers.enroll import router as enroll_router
+from handlers.admin import router as admin_router
 from storage import save_enrollment
 
 logging.basicConfig(
@@ -90,7 +93,7 @@ async def webhook(request: Request):
 @app.on_event("startup")
 async def on_startup():
     validate_config()
-    dp.include_routers(start.router, info.router, enroll.router, admin.router)
+    dp.include_routers(start_router, info_router, enroll_router, admin_router)
     if not BASE_URL:
         logger.warning("RENDER_EXTERNAL_URL not set — falling back to long polling")
         asyncio.create_task(dp.start_polling(bot))
