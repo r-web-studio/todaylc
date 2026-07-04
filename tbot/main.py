@@ -1,9 +1,11 @@
 import os
 import logging
 import asyncio
+import traceback
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
@@ -32,13 +34,52 @@ bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTM
 dp = Dispatcher(storage=MemoryStorage())
 
 polling_task = None
-app = FastAPI()
+_startup_complete = False
 
 
 class EnrollPayload(BaseModel):
     name: str
     phone: str
     course: str
+
+
+@asynccontextmanager
+async def lifespan(application: FastAPI):
+    global polling_task, _startup_complete
+    try:
+        validate_config()
+        dp.include_routers(start_router, info_router, enroll_router, admin_router)
+        if not BASE_URL:
+            logger.warning("RENDER_EXTERNAL_URL not set — falling back to long polling")
+            polling_task = asyncio.create_task(dp.start_polling(bot))
+        else:
+            webhook_url = f"{BASE_URL.rstrip('/')}{WEBHOOK_PATH}"
+            await bot.set_webhook(webhook_url, secret_token=WEBHOOK_SECRET)
+            logger.info("Webhook set to %s", webhook_url)
+        _startup_complete = True
+        logger.info("Bot startup complete")
+    except Exception as e:
+        logger.error("Startup failed: %s\n%s", e, traceback.format_exc())
+        _startup_complete = False
+    yield
+    global polling_task
+    if polling_task:
+        polling_task.cancel()
+        try:
+            await polling_task
+        except asyncio.CancelledError:
+            pass
+    await bot.session.close()
+    logger.info("Bot shutdown complete")
+
+
+app = FastAPI(lifespan=lifespan)
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logger.error("Unhandled exception on %s: %s\n%s", request.url.path, exc, traceback.format_exc())
+    return JSONResponse(status_code=500, content={"detail": "Internal server error"})
 
 
 @app.api_route("/", methods=["GET", "POST", "HEAD"], response_class=HTMLResponse)
@@ -72,6 +113,8 @@ async def index():
 
 @app.get("/health")
 async def health():
+    if not _startup_complete:
+        return JSONResponse(status_code=503, content={"status": "starting"})
     return {"status": "ok"}
 
 
@@ -86,31 +129,14 @@ async def webhook(request: Request):
     secret = request.headers.get("X-Telegram-Bot-Api-Secret-Token")
     if secret != WEBHOOK_SECRET:
         raise HTTPException(status_code=403, detail="Invalid secret token")
-    update = Update.model_validate(await request.json(), context={"bot": bot})
-    await dp.feed_update(bot, update)
+    try:
+        update = Update.model_validate(await request.json(), context={"bot": bot})
+        await dp.feed_update(bot, update)
+    except Exception as e:
+        logger.error("Webhook processing error: %s", e)
     return {"status": "ok"}
 
 
-@app.on_event("startup")
-async def on_startup():
-    global polling_task
-    validate_config()
-    dp.include_routers(start_router, info_router, enroll_router, admin_router)
-    if not BASE_URL:
-        logger.warning("RENDER_EXTERNAL_URL not set — falling back to long polling")
-        polling_task = asyncio.create_task(dp.start_polling(bot))
-        return
-    webhook_url = f"{BASE_URL.rstrip('/')}{WEBHOOK_PATH}"
-    await bot.set_webhook(webhook_url, secret_token=WEBHOOK_SECRET)
-    logger.info("Webhook set to %s", webhook_url)
-
-
-@app.on_event("shutdown")
-async def on_shutdown():
-    global polling_task
-    if polling_task:
-        polling_task.cancel()
-    await bot.session.close()
-
-
-
+@app.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "HEAD"])
+async def catch_all(path: str):
+    return JSONResponse(status_code=404, content={"detail": "Not found"})
