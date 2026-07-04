@@ -8,9 +8,12 @@ const PORT = parseInt(process.env.PORT, 10) || 3000;
 // Run DB migrations at startup
 if (process.env.DATABASE_URL) {
   console.log("[server] Running migrations...");
-  execSync("npx prisma migrate deploy", { stdio: "inherit", cwd: __dirname });
-  console.log("[server] Seeding database...");
-  execSync("node prisma/seed.js", { stdio: "inherit", cwd: __dirname });
+  try {
+    execSync("npx prisma migrate deploy", { stdio: "inherit", cwd: __dirname });
+    console.log("[server] Migrations completed successfully.");
+  } catch (err) {
+    console.error("[server] Migration failed:", err.message);
+  }
 }
 
 // Start Telegram bot (non-blocking)
@@ -19,7 +22,14 @@ const bot = spawn("python", ["main.py"], {
   stdio: "inherit",
   env: { ...process.env, RENDER_EXTERNAL_URL: "" },
 });
-bot.on("error", () => {});
+bot.on("error", (err) => {
+  console.error("[server] Bot failed to start:", err.message);
+});
+bot.on("exit", (code) => {
+  if (code !== 0) {
+    console.error(`[server] Bot exited with code ${code}`);
+  }
+});
 
 // Prepare and start Next.js in production mode
 const app = next({ dev: false, dir: __dirname });
